@@ -39,9 +39,9 @@ export default defineNuxtConfig({
   headlessui: {
     prefix: 'Headless'
   },
-  supabase: {
-    // Options
-    redirect : false
-  }
+  // supabase: {
+  //   // Options
+  //   redirect : false
+  // }
 
 })

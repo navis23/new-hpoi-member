@@ -16,7 +16,7 @@
             </ul>
         </div> -->
         <div class="hidden lg:flex lg:items-center lg:justify-end w-44">
-            <nuxt-link :to="route.fullPath == '/' ? '/kontak-kami' : '/'">
+            <nuxt-link :to="route.fullPath == '/' ? '/' : '/'">
                 <ButtonBaseSmall class="hpoi">
                     <Icon :name="route.fullPath == '/' ? 'lucide:home' : 'lucide:users'" class="text-xl" />
                     <span v-if="route.fullPath == '/'" >Halaman Utama HPOI</span>
@@ -31,16 +31,23 @@
                 </ButtonIconSolid>
                 
                 <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[0em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
-                    <nuxt-link to="/">
+                    <!-- <nuxt-link to="/">
                         <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                             <Icon name="lucide:wallpaper" class="text-xl lg:text-2xl" />
                             <span>
                                 Halaman Utama
                             </span>
                         </ButtonBase>
+                    </nuxt-link> -->
+                    <nuxt-link :to="route.fullPath == '/' ? '/' : '/'">
+                        <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
+                            <Icon :name="route.fullPath == '/' ? 'lucide:home' : 'lucide:users'" class="text-xl" />
+                            <span v-if="route.fullPath == '/'" >Halaman Utama HPOI</span>
+                            <span v-if="route.fullPath != '/'" >Halaman List Member</span>
+                        </ButtonBase>
                     </nuxt-link>
                 </div>
-                <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[4em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
+                <!-- <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[4em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
                     <nuxt-link to="/tentang-kami">
                         <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                             <Icon name="lucide:network" class="text-xl lg:text-2xl" />
@@ -69,7 +76,7 @@
                             </span>
                         </ButtonBase>
                     </nuxt-link>
-                </div>
+                </div> -->
 
                 <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-1.1em] translate-y-[4em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em]">
                 <div class="flex flex-col gap-y-2 text-center text-gsi-darkblue font-oswald font-bold text-xl">
@@ -91,16 +98,15 @@
             </ButtonIconSolid>
             
             <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[0em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
-                <nuxt-link to="/">
+                <nuxt-link :to="route.fullPath == '/' ? '/' : '/'">
                     <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
-                        <Icon name="lucide:wallpaper" class="text-xl lg:text-2xl" />
-                        <span>
-                            Halaman Utama
-                        </span>
+                        <Icon :name="route.fullPath == '/' ? 'lucide:home' : 'lucide:users'" class="text-xl" />
+                        <span v-if="route.fullPath == '/'" >Halaman Utama HPOI</span>
+                        <span v-if="route.fullPath != '/'" >Halaman List Member</span>
                     </ButtonBase>
                 </nuxt-link>
             </div>
-            <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[4em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
+            <!-- <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[4em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
                 <nuxt-link to="/tentang-kami">
                     <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                         <Icon name="lucide:network" class="text-xl lg:text-2xl" />
@@ -129,7 +135,7 @@
                         </span>
                     </ButtonBase>
                 </nuxt-link>
-            </div>
+            </div> -->
 
             <div :class="smallTopMenuExpanded ? 'translate-x-[-1.1em] translate-y-[4em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em]">
                 <div class="flex flex-col gap-y-2 text-center text-gsi-darkblue font-oswald font-bold text-xl">
