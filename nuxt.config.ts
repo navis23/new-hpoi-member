@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     'nuxt-headlessui',
     '@formkit/nuxt',
     '@vueuse/motion/nuxt',
-    '@nuxtjs/supabase'
+    // '@nuxtjs/supabase'
   ],
   css: ['~/assets/css/main.css'],
   postcss: {
