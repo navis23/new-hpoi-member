@@ -4,10 +4,10 @@ export default defineNuxtConfig({
     head: {
         charset: 'utf-16',
         viewport: 'width=device-width, initial-scale=1',
-        title: 'Griya Sambirejo Indah',
+        title: 'HPOI Member Area',
         meta: [
         // <meta name="description" content="My amazing site">
-            { name: 'description', content: 'Perumahan Griya Sambirejo Indah di Jombang' }
+            { name: 'description', content: 'Member area Himpunan Provider Outbound Indonesia' }
         ],
     },
   },
@@ -18,7 +18,8 @@ export default defineNuxtConfig({
     '@nuxt/image',
     'nuxt-headlessui',
     '@formkit/nuxt',
-    '@vueuse/motion/nuxt'
+    '@vueuse/motion/nuxt',
+    '@nuxtjs/supabase'
   ],
   css: ['~/assets/css/main.css'],
   postcss: {
@@ -37,6 +38,10 @@ export default defineNuxtConfig({
   },
   headlessui: {
     prefix: 'Headless'
+  },
+  supabase: {
+    // Options
+    redirect : false
   }
 
 })

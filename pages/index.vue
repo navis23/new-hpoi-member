@@ -33,7 +33,7 @@
                             </div>
                             <div class="mb-6 mt-3">
                                 <div class="flex gap-2 leading-snug line-clamp-2 text-sm pb-2">
-                                    <p class="font-oswald text-2xl text-hpoi-main ">
+                                    <p class="font-oswald text-xl md:text-2xl text-hpoi-main ">
                                         {{ item.nama_provider }}
                                     </p>
                                 </div>
@@ -47,7 +47,7 @@
                                     <div class="flex items-center gap-2 leading-snug line-clamp-2 text-sm pb-2">
                                         <Icon name="lucide:map-pin" class="text-lg" />
                                         <p class="font-oswald">
-                                            {{ item.alamat }}
+                                            {{ item.dpc }}
                                         </p>
                                     </div>
                                 </div>
@@ -65,24 +65,24 @@
                                     </h4>
                                 </div>
                                 <div class="ms-auto">
-                                    <ButtonBaseSmall class="muted">
-                                        <Icon name="lucide:clipboard-list" class="text-2xl" />
-                                        <span>
-                                            Detail Member
-                                        </span>
-                                    </ButtonBaseSmall>
+                                    <nuxt-link :to="`/anggota/${item.no_anggota}`">
+                                        <ButtonBaseSmall class="muted">
+                                            <Icon name="lucide:clipboard-list" class="text-2xl" />
+                                            <span>
+                                                Detail Member
+                                            </span>
+                                        </ButtonBaseSmall>
+                                    </nuxt-link>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="absolute bg-gsi-smokewhite bottom-0 -right-4 w-4 h-4 ">
                         <div class=" w-4 h-4 rounded-bl-xl bg-gray-800 ">
-
                         </div>
                     </div>
                     <div class="absolute bg-gsi-smokewhite bottom-0 -left-4 w-4 h-4 ">
                         <div class=" w-4 h-4 rounded-br-xl bg-gray-800 ">
-
                         </div>
                     </div>
                 </div>
@@ -97,10 +97,10 @@
             </p>
         </div>
         
-        <div class="relative w-full flex items-center justify-center px-4 lg:px-32  mt-20">
+        <div v-motion-slide-visible-once-top :delay="500" class="relative w-full flex items-center justify-center px-4 lg:px-32 mt-20">
             <div class="relative bg-gray-800 w-full py-4 rounded-xl overflow-hidden">
                 <h3 class="font-oswald text-xl lg:text-5xl text-center text-gsi-smokewhite">
-                    <span class="text-hpoi-main font-bold">All Member</span> from HPOI
+                    <span class="text-hpoi-main font-bold">All Member</span> of HPOI
                 </h3>
                 <p class="absolute py-10 right-0 opacity-20 md:opacity-50 -top-16">
                     <Icon name="PatternThree" class="text-[15rem]"/>
@@ -113,7 +113,7 @@
             </div>
         </div>
         <!-- about section -->
-        <div v-motion-slide-bottom :delay="500" class="relative w-full px-4 lg:px-32 py-10">
+        <div class="relative w-full px-4 lg:px-32 py-10">
             <!-- search & action -->
             <div class="mb-6 flex w-full flex-col items-end justify-between gap-4 sm:flex-row">
                 <div class="flex w-full items-center sm:w-auto">
@@ -146,7 +146,7 @@
                     </div>
                     <div class="mb-6 mt-3">
                         <div class="flex gap-2 leading-snug line-clamp-2 text-sm pb-2">
-                            <p class="font-oswald text-2xl text-hpoi-main ">
+                            <p class="font-oswald text-xl md:text-2xl text-hpoi-main ">
                                 {{ item.nama_provider }}
                             </p>
                         </div>
@@ -160,7 +160,7 @@
                             <div class="flex items-center gap-2 leading-snug line-clamp-2 text-sm pb-2">
                                 <Icon name="lucide:map-pin" class="text-lg" />
                                 <p class="font-oswald">
-                                    {{ item.alamat }}
+                                    {{ item.dpc }}
                                 </p>
                             </div>
                         </div>
@@ -181,7 +181,7 @@
                             </h4>
                         </div>
                         <div class="ms-auto">
-                            <nuxt-link :to="`anggota/${item.no_anggota}`">
+                            <nuxt-link :to="`/anggota/${item.no_anggota}`">
                                 <ButtonBaseSmall class="dark">
                                     <Icon name="lucide:clipboard-list" class="text-2xl" />
                                     <span>
@@ -198,6 +198,7 @@
 </template>
 
 <script setup lang="ts">
+
 
 const storeGlobalData = useGlobalDataStore()
 

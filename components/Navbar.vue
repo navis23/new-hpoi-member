@@ -16,10 +16,11 @@
             </ul>
         </div> -->
         <div class="hidden lg:flex lg:items-center lg:justify-end w-44">
-            <nuxt-link to="kontak-kami">
+            <nuxt-link :to="route.fullPath == '/' ? '/kontak-kami' : '/'">
                 <ButtonBaseSmall class="hpoi">
-                    <Icon name="lucide:phone-call" class="text-xl" />
-                    Kontak Kami
+                    <Icon :name="route.fullPath == '/' ? 'lucide:home' : 'lucide:users'" class="text-xl" />
+                    <span v-if="route.fullPath == '/'" >Halaman Utama HPOI</span>
+                    <span v-if="route.fullPath != '/'" >Halaman List Member</span>
                 </ButtonBaseSmall>
             </nuxt-link>
         </div>
@@ -40,7 +41,7 @@
                     </nuxt-link>
                 </div>
                 <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[4em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
-                    <nuxt-link to="tentang-kami">
+                    <nuxt-link to="/tentang-kami">
                         <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                             <Icon name="lucide:network" class="text-xl lg:text-2xl" />
                             <span>
@@ -50,7 +51,7 @@
                     </nuxt-link>
                 </div>
                 <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[8em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
-                    <nuxt-link to="hunian-kami">
+                    <nuxt-link to="/hunian-kami">
                         <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                             <Icon name="lucide:home" class="text-xl lg:text-2xl" />
                             <span>
@@ -60,7 +61,7 @@
                     </nuxt-link>
                 </div>
                 <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[12em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
-                    <nuxt-link to="kontak-kami">
+                    <nuxt-link to="/kontak-kami">
                         <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                             <Icon name="lucide:phone-call" class="text-xl lg:text-2xl" />
                             <span>
@@ -100,7 +101,7 @@
                 </nuxt-link>
             </div>
             <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[4em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
-                <nuxt-link to="tentang-kami">
+                <nuxt-link to="/tentang-kami">
                     <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                         <Icon name="lucide:network" class="text-xl lg:text-2xl" />
                         <span>
@@ -110,7 +111,7 @@
                 </nuxt-link>
             </div>
             <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[8em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
-                <nuxt-link to="hunian-kami">
+                <nuxt-link to="/hunian-kami">
                     <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                         <Icon name="lucide:home" class="text-xl lg:text-2xl" />
                         <span>
@@ -120,7 +121,7 @@
                 </nuxt-link>
             </div>
             <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[12em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
-                <nuxt-link to="kontak-kami">
+                <nuxt-link to="/kontak-kami">
                     <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                         <Icon name="lucide:phone-call" class="text-xl lg:text-2xl" />
                         <span>
