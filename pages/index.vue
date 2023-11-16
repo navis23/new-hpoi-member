@@ -21,33 +21,33 @@
                     
                     <!-- member featured cards -->
                     <div class="grid grid-cols-12 gap-4">
-                        <div v-for="(item, index) in featuredMembers" :key="index" class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
+                        <div v-for="(item, index) in anggotaFeat" :key="index" class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
-                                <nuxt-img :src="item.hero_img" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                                <nuxt-img :src="item.hpoi_anggota.hero_img" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                                 <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                                     Uyesss
                                 </span> -->
                                 <Badge class="dark absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                                    {{ item.nama_provider }}
+                                    {{ item.hpoi_anggota.nama_provider }}
                                 </Badge>
                             </div>
                             <div class="mb-6 mt-3">
                                 <div class="flex gap-2 leading-snug line-clamp-2 text-sm pb-2">
                                     <p class="font-oswald text-xl md:text-2xl text-hpoi-main ">
-                                        {{ item.nama_provider }}
+                                        {{ item.hpoi_anggota.nama_provider }}
                                     </p>
                                 </div>
                                 <div class="flex gap-4 justify-start">
                                     <div class="flex items-center gap-2 leading-snug line-clamp-2 text-sm pb-2">
                                         <Icon name="lucide:phone" class="text-lg" />
                                         <p class="font-oswald">
-                                            {{ item.telepon }}
+                                            {{ item.hpoi_anggota.telepon }}
                                         </p>
                                     </div>
                                     <div class="flex items-center gap-2 leading-snug line-clamp-2 text-sm pb-2">
                                         <Icon name="lucide:map-pin" class="text-lg" />
                                         <p class="font-oswald">
-                                            {{ item.dpc }}
+                                            {{ item.hpoi_dpc.nama_dpc }}
                                         </p>
                                     </div>
                                 </div>
@@ -55,17 +55,17 @@
                             <div class="mt-auto flex items-center gap-2">
                                 <div class="relative inline-flex shrink-0 items-center justify-center rounded-full outline-none bg-slate-100">
                                     <Avatar class="overflow-hidden">
-                                        <nuxt-img :src="item.logo_img" format="webp" loading="lazy" sizes="sm:20vw" class="object-cover object-center" />
+                                        <nuxt-img :src="item.hpoi_anggota.logo_img" format="webp" loading="lazy" sizes="sm:20vw" class="object-cover object-center" />
                                     </Avatar>
                                 </div>
                                 <div class="leading-none">
                                     <p class="text-xs text-gray-400">ID Member</p>
                                     <h4 class="text-base font-oswald font-medium leading-tight text-hpoi-main">
-                                        {{ item.no_anggota }}
+                                        {{ item.hpoi_anggota.no_anggota }}
                                     </h4>
                                 </div>
                                 <div class="ms-auto">
-                                    <nuxt-link :to="`/anggota/${item.no_anggota}`">
+                                    <nuxt-link :to="`/anggota/${item.hpoi_anggota.no_anggota}`">
                                         <ButtonBaseSmall class="muted">
                                             <Icon name="lucide:clipboard-list" class="text-2xl" />
                                             <span>
@@ -124,43 +124,49 @@
                             prefix-icon="search"
                             outer-class="!mb-0"
                             inner-class="!mb-0"
+                            v-model="search"
+                            @keydown.enter="searchData"
+                            @keydown.tab="searchData"
                         />
                     </div>
                 </div>
-                <ButtonBaseExpanded class="hpoi flex items-center justify-center gap-x-1 shadow-sm">
-                    <Icon name="lucide:filter" class="text-2xl"/>
-                    Filter Data
+                <ButtonBaseExpanded @click="reloadData()" :class="loading == true ? 'muted' : 'hpoi '" class="flex items-center justify-center gap-x-1 shadow-sm" :disabled="loading == true">
+                    <Icon name="lucide:refresh-cw" class="text-2xl"/>
+                    Refresh Data
                 </ButtonBaseExpanded>
             </div>
             <!-- member featured cards -->
-            <div class="grid grid-cols-12 gap-4">
-                <div v-for="(item, index) in hpois" :key="index" class="relative col-span-12 lg:col-span-4 w-full bg-white shadow transition-all duration-300 rounded-xl group p-3">
+            <div v-if="loading == true" class="w-full flex justify-center items-center">
+                <LoadingMini />
+            </div>
+            <div v-if="loading == false" class="grid grid-cols-12 gap-4">
+                <div v-for="(item, index) in anggotaAll" :key="index" class="relative col-span-12 lg:col-span-4 w-full bg-white shadow transition-all duration-300 rounded-xl group p-3">
                     <div class="relative">
-                        <nuxt-img :src="item.hero_img" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                        <nuxt-img :src="item.hpoi_anggota.hero_img" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                         <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                             Uyesss
                         </span> -->
                         <Badge class="dark absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                            {{ item.nama_provider }}
+                            {{ item.hpoi_anggota.nama_provider }}
                         </Badge>
                     </div>
                     <div class="mb-6 mt-3">
                         <div class="flex gap-2 leading-snug line-clamp-2 text-sm pb-2">
                             <p class="font-oswald text-xl md:text-2xl text-hpoi-main ">
-                                {{ item.nama_provider }}
+                                {{ item.hpoi_anggota.nama_provider }}
                             </p>
                         </div>
                         <div class="flex gap-4 justify-start">
                             <div class="flex items-center gap-2 leading-snug line-clamp-2 text-sm pb-2">
                                 <Icon name="lucide:phone" class="text-lg" />
                                 <p class="font-oswald">
-                                    {{ item.telepon }}
+                                    {{ item.hpoi_anggota.telepon }}
                                 </p>
                             </div>
                             <div class="flex items-center gap-2 leading-snug line-clamp-2 text-sm pb-2">
                                 <Icon name="lucide:map-pin" class="text-lg" />
                                 <p class="font-oswald">
-                                    {{ item.dpc }}
+                                    {{ item.hpoi_dpc.nama_dpc }}
                                 </p>
                             </div>
                         </div>
@@ -171,17 +177,17 @@
                                 <nuxt-img src="/img/ava01.png" format="webp" loading="lazy" sizes="sm:20vw" class="max-h-full max-w-full object-cover object-center shadow-sm h-8 w-8" />
                             </div> -->
                             <Avatar class="overflow-hidden bg-white">
-                                <nuxt-img :src="item.logo_img" format="webp" loading="lazy" sizes="sm:20vw" class="object-cover object-center" />
+                                <nuxt-img :src="item.hpoi_anggota.logo_img" format="webp" loading="lazy" sizes="sm:20vw" class="object-cover object-center" />
                             </Avatar>
                         </div>
                         <div class="leading-none">
                             <p class="text-xs text-gray-400">ID Member</p>
                             <h4 class="text-base font-oswald font-medium leading-tight text-hpoi-main">
-                                {{ item.no_anggota }}
+                                {{ item.hpoi_anggota.no_anggota }}
                             </h4>
                         </div>
                         <div class="ms-auto">
-                            <nuxt-link :to="`/anggota/${item.no_anggota}`">
+                            <nuxt-link :to="`/anggota/${item.hpoi_anggota.no_anggota}`">
                                 <ButtonBaseSmall class="dark">
                                     <Icon name="lucide:clipboard-list" class="text-2xl" />
                                     <span>
@@ -193,26 +199,103 @@
                     </div>
                 </div>
             </div>
+            <div v-if="anggotaAll.length == 0" class="w-full flex justify-center gap-x-2 items-center">
+                <Icon name="lucide:file-warning" class="text-3xl text-red-600"/>
+                <p class="font-oswald">
+                    Tidak ada data yang ditemukan, silahkan cari kembali atau refresh data
+                </p>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-
-
 const storeGlobalData = useGlobalDataStore()
 
 const {
-    facilities,
-    locations,
-    hpois
+    loading
 } = storeToRefs(storeGlobalData)
 
+const anggotaAll = ref()
+const anggotaFeat = ref()
+const search = ref('')
+const client = useSupabaseClient()
+
+// feth data from api
+const { data: anggota } = await useAsyncData('anggota', async () => client
+    .from('hpoi_detail_anggota')
+    .select(`
+        featured,
+        hpoi_anggota(nama_provider, telepon, no_anggota, logo_img, hero_img),
+        hpoi_dpc( nama_dpc )
+    `)
+    , { transform: (result : any) => result.data }
+)
+anggotaAll.value = await anggota.value
+anggotaFeat.value = await anggota.value
+
+// filtered featured member
 const featuredMembers = computed(() =>
-hpois.value.filter(
-        (p) => p.featured == true
+anggotaFeat.value.filter(
+        (p : any) => p.featured == true
     ) || []
 )
+
+// shuffle all data
+const shuffleAnggota = computed(() => 
+    anggotaAll.value.sort(() => Math.random() - 0.5)
+)
+
+// all process fetching final data
+const fetchShuffle = async () => {
+    loading.value = true
+    setTimeout(async () => {
+        loading.value = false
+        anggotaAll.value = await shuffleAnggota.value
+    }, 1000);
+}
+
+const fetchFeatured = async () => {
+    anggotaFeat.value = await featuredMembers.value
+}
+
+const reloadData = async () => {
+    loading.value = true
+    anggotaAll.value = await anggota.value
+    const reshuffleAnggota = computed(() => 
+        anggotaAll.value.sort(() => Math.random() - 0.5)
+    )
+    search.value = ''
+
+    setTimeout(async () => {
+        loading.value = false
+        anggotaAll.value = await reshuffleAnggota.value
+    }, 1000);
+}
+
+const searchData = async () => {
+    loading.value = true
+    const { data: search_anggota } = await useAsyncData('search_anggota', async () => client
+        .from('hpoi_detail_anggota')
+        .select(`
+            featured,
+            hpoi_anggota!inner(nama_provider, telepon, no_anggota, logo_img, hero_img),
+            hpoi_dpc( nama_dpc )
+        `)
+        .ilike('hpoi_anggota.nama_provider', `%${search.value}%`)
+        , { transform: (result : any) => result.data }
+    )
+    setTimeout(async () => {
+        anggotaAll.value = await search_anggota.value
+        loading.value = false
+    }, 1000);
+}
+
+onMounted(async () => {
+    await fetchFeatured()
+    await fetchShuffle()
+})
+
 
 
 </script>

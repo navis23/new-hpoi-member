@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     'nuxt-headlessui',
     '@formkit/nuxt',
     '@vueuse/motion/nuxt',
-    // '@nuxtjs/supabase'
+    '@nuxtjs/supabase'
   ],
   css: ['~/assets/css/main.css'],
   postcss: {
@@ -39,9 +39,9 @@ export default defineNuxtConfig({
   headlessui: {
     prefix: 'Headless'
   },
-  // supabase: {
-  //   // Options
-  //   redirect : false
-  // }
+  supabase: {
+    // Options
+    redirect : false
+  }
 
 })

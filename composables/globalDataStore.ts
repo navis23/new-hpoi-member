@@ -1,5 +1,6 @@
 export const useGlobalDataStore = defineStore('globalDataStore', {
     state: () => ({
+        loading : false,
         facilities : [
             {
                 'id' : 1,
