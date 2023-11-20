@@ -89,11 +89,9 @@
             </div>
             <p class="absolute py-10 -right-56 opacity-20 md:opacity-50 top-20">
                 <Icon name="PatternThree" class="text-[28rem]"/>
-                <!-- <nuxt-img src="/img/circle01.svg" loading="lazy" sizes="sm:50vw" class="object-cover  object-center h-96 w-full"/> -->
             </p>
             <p class="absolute py-10 -left-56 opacity-20 md:opacity-50 bottom-10">
                 <Icon name="PatternThree" class="text-[28rem]"/>
-                <!-- <nuxt-img src="/img/circle01.svg" loading="lazy" sizes="sm:50vw" class="object-cover  object-center h-96 w-full"/> -->
             </p>
         </div>
         
@@ -104,11 +102,9 @@
                 </h3>
                 <p class="absolute py-10 right-0 opacity-20 md:opacity-50 -top-16">
                     <Icon name="PatternThree" class="text-[15rem]"/>
-                    <!-- <nuxt-img src="/img/circle01.svg" loading="lazy" sizes="sm:50vw" class="object-cover  object-center h-96 w-full"/> -->
                 </p>
                 <p class="absolute py-10 left-0 opacity-20 md:opacity-50 -bottom-16">
                     <Icon name="PatternThree" class="text-[15rem]"/>
-                    <!-- <nuxt-img src="/img/circle01.svg" loading="lazy" sizes="sm:50vw" class="object-cover  object-center h-96 w-full"/> -->
                 </p>
             </div>
         </div>
@@ -199,7 +195,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="anggotaAll.length == 0" class="w-full flex justify-center gap-x-2 items-center">
+            <div v-if="anggotaAll.length == 0 && !loading" class="w-full flex justify-center gap-x-2 items-center">
                 <Icon name="lucide:file-warning" class="text-3xl text-red-600"/>
                 <p class="font-oswald">
                     Tidak ada data yang ditemukan, silahkan cari kembali atau refresh data
@@ -211,6 +207,7 @@
 
 <script setup lang="ts">
 const storeGlobalData = useGlobalDataStore()
+const client = useSupabaseClient()
 
 const {
     loading
@@ -219,7 +216,6 @@ const {
 const anggotaAll = ref()
 const anggotaFeat = ref()
 const search = ref('')
-const client = useSupabaseClient()
 
 // feth data from api
 const { data: anggota } = await useAsyncData('anggota', async () => client

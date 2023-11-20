@@ -41,7 +41,12 @@ export default defineNuxtConfig({
   },
   supabase: {
     // Options
-    redirect : false
+    // redirect : false
+    redirectOptions: {
+      login: '/secret/login',
+      callback: '/confirm',
+      exclude: ['/', '/anggota/*', '/secret/daftar'],
+    }
   }
 
 })

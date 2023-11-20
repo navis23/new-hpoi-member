@@ -1,0 +1,116 @@
+<template>
+    <div class="relative overflow-hidden">
+        <Navbar />
+        <div class="relative min-h-screen bg-gray-800 px-4 lg:px-32 overflow-hidden">
+            <div class="flex flex-col gap-6 w-full min-h-screen items-center justify-center">
+                <h3 class="font-oswald text-gsi-smokewhite text-4xl text-center mb-4"><span class="text-hpoi-main underline underline-offset-4">Registrasi Akun</span> Anggota anda</h3>
+                <div class="relative overflow-hidden z-40 bg-gsi-smokewhite w-96  shadow-xl rounded-xl px-4 lg:px-8 py-6">
+                    <div class="mt-4 mb-5">
+                        <FormKit
+                            type="text"
+                            prefix-icon="email"
+                            label="Email Anda"
+                            v-model="email"
+                            placeholder="Ketikkan email Anda"
+                            help="Masukkan email anda yang sesuai"
+                        />
+                        <FormKit
+                            type="password"
+                            prefix-icon="password"
+                            label="Password Anda"
+                            v-model="password"
+                            suffix-icon="eyeClosed"
+                            @suffix-icon-click="handleIconClick"
+                            placeholder="Ketikkan Password Anda"
+                            help="Masukkan password rahasia anda"
+                        />
+                        
+                    </div>
+                    <div class="border-t-2 pt-4">
+                        <ButtonBase v-if="loading == false" @click="signUp()" class="flex items-center justify-center gap-x-1 ">
+                            <Icon name="lucide:clipboard-check" class="text-2xl" />
+                            <span>
+                                Daftar Sekarang
+                            </span>
+                        </ButtonBase>
+                        <ButtonBase v-if="loading == true" class="muted flex items-center justify-center gap-x-1 " :disabled="loading == true">
+                            <Icon name="svg-spinners:blocks-shuffle-3" class="text-2xl" />
+                            <span>
+                                Proses simpan
+                            </span>
+                        </ButtonBase>
+                    </div>
+                </div>
+                
+                <h3 class="font-oswald text-gsi-smokewhite">
+                    Sudah punya akun ? <nuxt-link to="/secret/login"><span class="text-hpoi-main underline underline-offset-4">Login Disini</span></nuxt-link> 
+                </h3>
+            </div>
+            <p class="absolute py-10 -right-56 opacity-20 md:opacity-50 top-20">
+                <Icon name="PatternThree" class="text-[28rem]"/>
+            </p>
+            <p class="absolute py-10 -left-56 opacity-20 md:opacity-50 bottom-10">
+                <Icon name="PatternThree" class="text-[28rem]"/>
+            </p>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+const storeGlobalData = useGlobalDataStore()
+const client = useSupabaseClient()
+
+const {
+    loading,
+    errorMsg
+} = storeToRefs(storeGlobalData)
+
+const email = ref('')
+const password = ref('')
+
+
+const signUp = async () => {
+    loading.value = true
+    let { data, error } = await client.auth.signUp({
+        email: email.value,
+        password: password.value
+    })
+
+    console.log(data.user?.email)
+
+    if(email.value == data.user?.email){
+        console.log('samaaa')
+        setTimeout(async () => {
+            loading.value = false
+            email.value = ''
+            password.value = ''
+        }, 1000);
+    } else {
+        if(data && email.value != '' && password.value !=''){
+            console.log(data)
+            setTimeout(async () => {
+                loading.value = false
+                email.value = ''
+                password.value = ''
+            }, 1000);
+        } else {
+            console.log(error)
+            setTimeout(async () => {
+                loading.value = false
+            }, 1000);
+        }
+    }
+    
+}
+
+const handleIconClick = (node : any, e : any) => {
+  node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'
+  node.props.type = node.props.type === 'password' ? 'text' : 'password'
+}
+
+
+</script>
+
+<style scoped>
+
+</style>
