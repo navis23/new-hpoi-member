@@ -5,13 +5,13 @@ export default {
     // Global styles apply to _all_ inputs with matching section keys
     global: {
       fieldset: 'max-w-md border border-gray-400 rounded px-2 pb-1',
-      help: 'text-xs text-gray-500',
+      help: 'font-oswald text-xs text-gray-500',
       inner: 'formkit-disabled:bg-gray-200 bg-gray-50 formkit-disabled:cursor-not-allowed formkit-disabled:pointer-events-none',
-      input: 'appearance-none bg-gray-50 rounded focus:outline-none focus:ring-0 focus:shadow-none',
-      label: 'block mb-1 font-bold text-sm',
-      legend: 'font-bold text-sm',
+      input: 'appearance-none bg-gray-50 text-xs rounded focus:outline-none focus:ring-0 focus:shadow-none',
+      label: 'font-oswald block mb-1 font-semibold text-sm',
+      legend: 'font-oswald font-bold text-sm',
       loaderIcon: 'inline-flex items-center w-4 text-gray-600 animate-spin',
-      message: 'text-red-500 mb-1 text-xs',
+      message: 'font-oswald text-red-500 mb-1 text-xs',
       messages: 'list-none p-0 mt-1 mb-0',
       outer: 'mb-4 formkit-disabled:opacity-50',
       prefixIcon: 'w-10 text-gray-400 transition-all duration-200 flex self-stretch grow-0 shrink-0 rounded-tl rounded-bl bg-gray-50 [&>svg]:w-full [&>svg]:max-w-[1em] [&>svg]:max-h-[1em] [&>svg]:m-auto',
@@ -46,7 +46,7 @@ export default {
       loadMoreInner: 'flex items-center justify-center text-sm p-2 text-center w-full text-sky-500 formkit-loading:text-gray-500 cursor-pointer [&>span]:mr-3 [&>span]:ml-0',
       option: 'p-2.5',
       optionLoading: 'text-gray-500',
-      placeholder: 'p-2.5 text-gray-400',
+      placeholder: 'font-oswald p-2.5 text-gray-400',
       selector: 'flex w-full justify-between items-center [&u]',
       selectedIcon: 'block absolute top-1/2 left-2 w-3 -translate-y-1/2',
       selectIcon: 'flex box-content w-4 px-2 self-stretch grow-0 shrink-0 [&>svg]:w-[1em]',
@@ -67,7 +67,7 @@ export default {
       suffixIcon: 'min-w-[2.5em] pr-0 pl-0 m-auto'
     },
     file: {
-      fileItem: 'flex items-center text-gray-800 mb-1 last:mb-0',
+      fileItem: 'flex items-center text-gray-800 font-oswald text-xs mb-1 last:mb-0',
       fileItemIcon: 'w-4 mr-2 shrink-0',
       fileList: 'shrink grow peer px-3 py-2 formkit-multiple:data-[has-multiple="true"]:mb-6',
       fileName: 'break-all grow text-ellipsis',
@@ -75,7 +75,7 @@ export default {
       fileRemoveIcon: 'block text-base w-3 relative z-[2]',
       inner: 'relative max-w-md cursor-pointer formkit-multiple:[&>button]:absolute',
       input: 'cursor-pointer text-transparent absolute top-0 right-0 left-0 bottom-0 opacity-0 z-[2]',
-      noFiles: 'flex w-full items-center px-3 py-2 text-gray-400',
+      noFiles: 'flex w-full items-center px-3 py-2 font-oswald text-xs text-gray-400',
       noFilesIcon: 'w-4 mr-2'
     },
     radio: {

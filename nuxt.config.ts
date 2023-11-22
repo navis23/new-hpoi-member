@@ -47,6 +47,9 @@ export default defineNuxtConfig({
       callback: '/confirm',
       exclude: ['/', '/anggota/*', '/secret/daftar'],
     }
+  },
+  image: {
+    domains: ['https://rxabauhlxtkghurnabvr.supabase.co']
   }
 
 })

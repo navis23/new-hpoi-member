@@ -19,6 +19,7 @@
                             type="text"
                             prefix-icon="flag"
                             label="Alamat Kantor"
+                            v-model="alamat"
                             placeholder="Ketikkan alamat lengkap Anda"
                             help="Masukkan alamat anda yang sesuai"
                         />
@@ -26,20 +27,24 @@
                             type="text"
                             prefix-icon="whatsapp"
                             label="Nomor Telepon"
+                            v-model="telepon"
                             placeholder="Ketikkan no telepon Anda"
                             help="Masukkan no telepon/WA yang sesuai"
                         />
                         <FormKit
                             type="text"
                             prefix-icon="cardano"
-                            label="Nama Website"
+                            label="Nama Website (Optional)*"
+                            v-model="website"
                             placeholder="Ketikkan Nama Website Anda"
                             help="Masukkan nama website yang sesuai"
                         />
                         <FormKit
+                            v-if="website != ''"
                             type="text"
                             prefix-icon="uploadCloud"
                             label="URL Website"
+                            v-model="website_url"
                             placeholder="Ketikkan URL Website Anda"
                             help="Masukkan url web contoh: https://hpoi.org/"
                         />
@@ -52,10 +57,16 @@
                                 Kembali
                             </span>
                         </ButtonBaseSmall>
-                        <ButtonBaseSmall v-if="loading == false" @click="nextStep()" class="flex items-center justify-center gap-x-1">
+                        <ButtonBaseSmall v-if="loading == false && alamat != '' && telepon != ''" @click="nextStep()" class="flex items-center justify-center gap-x-1">
                             <Icon name="lucide:arrow-right-square" class="text-xl" />
                             <span>
                                 Lanjutkan
+                            </span>
+                        </ButtonBaseSmall>
+                        <ButtonBaseSmall v-if="loading == false && alamat == '' || telepon == ''" @click="nextStep()" class="muted flex items-center justify-center gap-x-1" disabled>
+                            <Icon name="lucide:x" class="text-xl" />
+                            <span>
+                                Lengkapi Semua Data
                             </span>
                         </ButtonBaseSmall>
                     </div>
@@ -77,22 +88,59 @@ definePageMeta({
 })
 
 const storeGlobalData = useGlobalDataStore()
+const storeAnggota = useAnggotaStore()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 
-console.log(user.value?.email)
+const {
+    dpcAll,
+    nama_provider,
+    alamat,
+    telepon,
+    email,
+    instagram,
+    facebook,
+    youtube,
+    website,
+    nama_pic,
+    profile_one,
+    profile_two,
+    layanan,
+    logo_img,
+    hero_img,
+    gallery_one,
+    gallery_two,
+    gallery_three,
+    gallery_four,
+    nama_dpc,
+    logo_img_temp,
+    hero_img_temp,
+    gallery_one_temp,
+    gallery_two_temp,
+    gallery_three_temp,
+    gallery_four_temp,
+    instagram_url,
+    facebook_url,
+    youtube_url,
+    website_url,
+} = storeToRefs(storeAnggota)
 
 const {
     loading,
     progress
 } = storeToRefs(storeGlobalData)
 
+onMounted(async () => {
+    progress.value = 20
+})
+
+
 const nextStep = async () => {
-    progress.value = 60
+    progress.value = 40
     navigateTo("/admin/data-anggota/register-wizard/step-three")
 }
 const backStep = async () => {
-    progress.value = 20
+    progress.value = 5
     navigateTo("/admin/data-anggota/register-wizard")
 }
 </script>

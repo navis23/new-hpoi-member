@@ -17,6 +17,7 @@
                     <div class="mt-4 mb-5">
                         <FormKit
                             type="text"
+                            v-model="no_anggota"
                             prefix-icon="solana"
                             label="Nomor Anggota"
                             placeholder="Ketikkan No Anggota Anda"
@@ -24,6 +25,7 @@
                         />
                         <FormKit
                             type="text"
+                            v-model="nama_provider"
                             prefix-icon="people"
                             label="Nama Provider"
                             placeholder="Ketikkan nama Provider Anda"
@@ -31,6 +33,7 @@
                         />
                         <FormKit
                             type="text"
+                            v-model="nama_pic"
                             prefix-icon="avatarMan"
                             label="Nama PIC"
                             placeholder="Ketikkan nama PIC Anda"
@@ -56,10 +59,29 @@
                         
                     </div>
                     <div class="border-t-2 pt-4">
-                        <ButtonBaseSmall v-if="loading == false" @click="nextStep()" class="flex items-center justify-center gap-x-1">
+                        <ButtonBaseSmall
+                        v-if="loading == false &&
+                            no_anggota != '' &&
+                            nama_provider != '' &&
+                            nama_pic != '' &&
+                            nama_dpc != ''" 
+                        @click="nextStep()" 
+                        class="flex items-center justify-center gap-x-1">
                             <Icon name="lucide:arrow-right-square" class="text-xl" />
                             <span>
                                 Lanjutkan
+                            </span>
+                        </ButtonBaseSmall>
+                        <ButtonBaseSmall
+                        v-if="loading == false &&
+                            no_anggota == '' ||
+                            nama_provider == '' ||
+                            nama_pic == '' ||
+                            nama_dpc == ''" 
+                        class="muted flex items-center justify-center gap-x-1" disabled>
+                            <Icon name="lucide:x" class="text-xl"/>
+                            <span>
+                                Lengkapi Semua Data
                             </span>
                         </ButtonBaseSmall>
                     </div>
@@ -150,6 +172,7 @@ const user = useSupabaseUser()
 
 const {
     dpcAll,
+    no_anggota,
     nama_provider,
     alamat,
     telepon,
@@ -175,13 +198,22 @@ const {
     gallery_two_temp,
     gallery_three_temp,
     gallery_four_temp,
+    instagram_url,
+    facebook_url,
+    youtube_url,
+    website_url,
 } = storeToRefs(storeAnggota)
 
 const {
     loading,
     progress,
-    is_open_dpc
+    is_open_dpc,
+    pass_step_one,
 } = storeToRefs(storeGlobalData)
+
+onMounted(async () => {
+    progress.value = 5
+})
 
 // fetch data
 const fetchDataDpc = async () => {
@@ -213,7 +245,18 @@ const fetchDataDpc = async () => {
 // function method utilities
 
 const nextStep = async () => {
-    progress.value = 40
+    if(
+        no_anggota.value == '' &&
+        nama_provider.value == '' &&
+        nama_pic.value == '' &&
+        nama_dpc.value == ''
+    ){
+        pass_step_one.value == true
+    } else {
+        pass_step_one.value == false
+    }
+    
+    progress.value = 20
     navigateTo("/admin/data-anggota/register-wizard/step-two")
 }
 
@@ -230,6 +273,7 @@ const closeModalListDpc = (item : any) => {
     nama_dpc.value = item.nama_dpc
     is_open_dpc.value = false
 }
+
 
 </script>
 
