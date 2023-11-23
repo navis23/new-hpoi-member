@@ -19,7 +19,8 @@ export default defineNuxtConfig({
     'nuxt-headlessui',
     '@formkit/nuxt',
     '@vueuse/motion/nuxt',
-    '@nuxtjs/supabase'
+    '@nuxtjs/supabase',
+    '@pinia-plugin-persistedstate/nuxt',
   ],
   css: ['~/assets/css/main.css'],
   postcss: {

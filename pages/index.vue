@@ -20,7 +20,7 @@
                     <!-- <h3 class="font-oswald text-xl lg:text-3xl pb-4"><span class="text-hpoi-main font-semibold underline underline-offset-8 ">Featured Member</span> of the Week</h3> -->
                     
                     <!-- member featured cards -->
-                    <div class="grid grid-cols-12 gap-4">
+                    <div v-if="anggotaFeat.length != 0" class="grid grid-cols-12 gap-4">
                         <div v-for="(item, index) in anggotaFeat" :key="index" class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
                                 <nuxt-img :src="item.hpoi_anggota.hero_img" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
@@ -73,6 +73,62 @@
                                             </span>
                                         </ButtonBaseSmall>
                                     </nuxt-link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="anggotaFeat.length == 0" class="grid grid-cols-12 gap-4">
+                        <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
+                            <div class="relative">
+                                <nuxt-img src="/img/zerofeature.png" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                                <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                                    Uyesss
+                                </span> -->
+                                <Badge class="dark absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                                    _______________________
+                                </Badge>
+                            </div>
+                            <div class="mb-6 mt-3">
+                                <div class="flex gap-2 justify-center leading-snug line-clamp-2 text-sm pb-2">
+                                    <p class="font-oswald text-xl md:text-2xl text-hpoi-main ">
+                                        Call for featured members
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
+                            <div class="relative">
+                                <nuxt-img src="/img/zerofeature.png" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                                <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                                    Uyesss
+                                </span> -->
+                                <Badge class="dark absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                                    _______________________
+                                </Badge>
+                            </div>
+                            <div class="mb-6 mt-3">
+                                <div class="flex gap-2 justify-center leading-snug line-clamp-2 text-sm pb-2">
+                                    <p class="font-oswald text-xl md:text-2xl text-hpoi-main ">
+                                        Call for featured members
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
+                            <div class="relative">
+                                <nuxt-img src="/img/zerofeature.png" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                                <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                                    Uyesss
+                                </span> -->
+                                <Badge class="dark absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                                    _______________________
+                                </Badge>
+                            </div>
+                            <div class="mb-6 mt-3">
+                                <div class="flex gap-2 justify-center leading-snug line-clamp-2 text-sm pb-2">
+                                    <p class="font-oswald text-xl md:text-2xl text-hpoi-main ">
+                                        Call for featured members
+                                    </p>
                                 </div>
                             </div>
                         </div>

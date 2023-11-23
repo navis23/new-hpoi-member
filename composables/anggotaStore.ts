@@ -22,14 +22,15 @@ export const useAnggotaStore = defineStore('anggotaStore', {
         gallery_two: '',
         gallery_three: '',
         gallery_four: '',
+        id_dpc: 0,
         nama_dpc: '',
         imagesAll_temp: [] as any,
-        logo_img_temp: null,
-        hero_img_temp: null,
-        gallery_one_temp: null,
-        gallery_two_temp: null,
-        gallery_three_temp: null,
-        gallery_four_temp: null,
+        logo_img_temp: '',
+        hero_img_temp: '',
+        gallery_one_temp: '',
+        gallery_two_temp: '',
+        gallery_three_temp: '',
+        gallery_four_temp: '',
         instagram_url: '',
         facebook_url: '',
         youtube_url: '',
@@ -37,6 +38,7 @@ export const useAnggotaStore = defineStore('anggotaStore', {
         
 
     }),
+    persist: true,
     getters: {
 
     },

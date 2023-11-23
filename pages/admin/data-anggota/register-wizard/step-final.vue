@@ -13,7 +13,7 @@
                         Pengisian data registrasi anda selesai
                     </h3>
                     <p class="text-gray-500 font-oswald">
-                        lihat preview halaman atau segera simpan data profil anda dibawah ini (jangan refresh halaman)
+                        lihat preview halaman atau segera simpan data profil anda dibawah ini
                     </p>
                     <div class="border-t-2 flex gap-x-2 pt-4 items-center justify-center">
                         <ButtonBaseSmall v-if="loading == false" @click="backStep()" class="muted flex items-center justify-center gap-x-1">
@@ -28,7 +28,7 @@
                                 Preview
                             </span>
                         </ButtonBaseSmall>
-                        <ButtonBaseSmall v-if="loading == false" @click="nextStep()" class="hpoi flex items-center justify-center gap-x-1">
+                        <ButtonBaseSmall v-if="loading == false" @click="openConfirmSaveAll()" class="hpoi flex items-center justify-center gap-x-1">
                             <Icon name="lucide:save" class="text-xl" />
                             <span>
                                 Simpan Data
@@ -44,7 +44,7 @@
                 <Icon name="PatternThree" class="text-[28rem]"/>
             </p>
         </div>
-        <div class="relative min-h-screen px-4 lg:px-32 overflow-hidden">
+        <!-- <div class="relative min-h-screen px-4 lg:px-32 overflow-hidden">
             <div class="pb-4">1. {{no_anggota}}</div>
             <div class="pb-4">2. {{nama_provider}}</div>
             <div class="pb-4">3. {{alamat}}</div>
@@ -76,7 +76,80 @@
             <div class="pb-4">29. {{facebook_url}}</div>
             <div class="pb-4">30. {{youtube_url}}</div>
             <div class="pb-4">31. {{website_url}}</div>
-        </div>
+            <div class="pb-4">31. DPC ID : {{id_dpc}}</div>
+        </div> -->
+        <ClientOnly>
+            <HeadlessTransitionRoot appear :show="isConfirmSaveAll" as="template">
+                <HeadlessDialog as="div" class="relative z-[999]">
+                    <HeadlessTransitionChild
+                        as="template"
+                        enter="duration-300 ease-out"
+                        enter-from="opacity-0"
+                        enter-to="opacity-100"
+                        leave="duration-200 ease-in"
+                        leave-from="opacity-100"
+                        leave-to="opacity-0"
+                    >
+                        <div class="fixed inset-0 bg-black bg-opacity-50" />
+                    </HeadlessTransitionChild>
+
+                    <div class="fixed inset-0 overflow-y-auto">
+                        <div class="flex min-h-full items-center justify-center p-4 text-center">
+                            <HeadlessTransitionChild
+                                as="template"
+                                enter="duration-300 ease-out"
+                                enter-from="opacity-0 scale-95"
+                                enter-to="opacity-100 scale-100"
+                                leave="duration-200 ease-in"
+                                leave-from="opacity-100 scale-100"
+                                leave-to="opacity-0 scale-95"
+                            >
+                                <HeadlessDialogPanel class="w-full text-center max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
+                                    <HeadlessDialogTitle as="h3" class="font-oswald border-b-2 pb-2 text-2xl font-medium leading-6 text-hpoi-main">
+                                        Konfirmasi Penyimpanan Data
+                                    </HeadlessDialogTitle>
+                                    
+                                    <div v-if="loading == false" class="my-4">
+                                        <p class="font-oswald text-xl text-gsi-darkblue">
+                                        Hai, {{ nama_provider }}
+                                        </p>
+                                        <p class="">
+                                            Apakah anda yakin untuk menyimpan data anda?
+                                        </p>
+                                        <p class="text-sm">
+                                            silahkan proses dibawah
+                                        </p>
+                                    </div>
+
+                                    <div v-if="loading == false" class="border-t-2 flex gap-x-2 pt-4 items-center justify-center">
+                                        <ButtonBaseSmall v-if="loading == false" @click="closeConfirmSaveAll()" class="muted flex items-center justify-center gap-x-1">
+                                            <Icon name="lucide:arrow-left-square" class="text-xl" />
+                                            <span>
+                                                Kembali
+                                            </span>
+                                        </ButtonBaseSmall>
+                                        <ButtonBaseSmall v-if="loading == false" @click="saveAllData()" class="flex items-center justify-center gap-x-1">
+                                            <Icon name="lucide:save" class="text-xl" />
+                                            <span>
+                                                Proses Simpan Data
+                                            </span>
+                                        </ButtonBaseSmall>
+                                    </div>
+                                    <div v-if="loading" class="w-full my-8 flex justify-center">
+                                        <p class="flex gap-x-2 text-2xl justify-center items-center text-gsi-darkblue py-2 pl-2 pr-3 rounded-md transition ease-in-out duration-300 font-oswald tracking-wide">
+                                            <Icon name="svg-spinners:blocks-shuffle-3" class="text-4xl text-hpoi-main" />
+                                            <span >
+                                                Proses Simpan Data...
+                                            </span>
+                                        </p>
+                                    </div>
+                                </HeadlessDialogPanel>
+                            </HeadlessTransitionChild>
+                        </div>
+                    </div>
+                </HeadlessDialog>
+            </HeadlessTransitionRoot>
+        </ClientOnly>
     </div>
 </template>
 
@@ -87,7 +160,7 @@ definePageMeta({
 
 const storeGlobalData = useGlobalDataStore()
 const storeAnggota = useAnggotaStore()
-const client = useSupabaseClient()
+const client = useSupabaseClient<any>()
 const user = useSupabaseUser()
 
 const {
@@ -101,6 +174,7 @@ const {
     facebook,
     youtube,
     website,
+    id_dpc,
     nama_pic,
     profile_one,
     profile_two,
@@ -123,6 +197,7 @@ const {
     facebook_url,
     youtube_url,
     website_url,
+    imagesAll_temp
 } = storeToRefs(storeAnggota)
 
 const {
@@ -134,6 +209,84 @@ onMounted(async () => {
     progress.value = 100
 })
 
+const isConfirmSaveAll = ref(false)
+
+// save all data to main db
+const saveAllData = async () => {
+    loading.value = true
+    const allData = {
+        no_anggota: no_anggota.value,
+        nama_provider: nama_provider.value,
+        alamat: alamat.value,
+        telepon: telepon.value,
+        email: user.value?.email,
+        instagram: instagram.value,
+        facebook: facebook.value,
+        youtube: youtube.value,
+        website: website.value,
+        nama_pic: nama_pic.value,
+        profile_one: profile_one.value,
+        profile_two: profile_two.value,
+        layanan: layananAll.value,
+        logo_img: logo_img_temp.value,
+        hero_img: hero_img_temp.value,
+        gallery_one: gallery_one_temp.value,
+        gallery_two: gallery_two_temp.value,
+        gallery_three: gallery_three_temp.value,
+        gallery_four: gallery_four_temp.value,
+        website_url: website_url.value,
+        instagram_url: instagram_url.value,
+        facebook_url: facebook_url.value,
+        youtube_url: youtube_url.value,
+        user_id: user.value?.id
+    }
+
+    const dataDetail = {
+        id_anggota: user.value?.id,
+        id_dpc: id_dpc.value,
+    }
+
+    const { data: anggota, error } = await client
+        .from('hpoi_anggota')
+        .upsert(allData)
+        .select()
+
+    const { data: detail, error: err } = await client
+        .from('hpoi_detail_anggota')
+        .upsert(dataDetail)
+        .select()
+
+    if(detail) {
+        const { error } = await client
+        .from('hpoi_gambartemp')
+        .delete()
+        .eq('user_id', user.value?.id)
+
+        if(error) throw error
+
+    }
+    console.log(anggota)
+    console.log(detail)
+    console.log('save all data')
+    
+    setTimeout(async () => {
+        isConfirmSaveAll.value = false
+        loading.value = false
+        storeAnggota.$reset()
+        navigateTo("/admin/data-anggota")
+    }, 1000);
+}
+
+// open modal confirmation
+const openConfirmSaveAll = async () => {
+    isConfirmSaveAll.value = true
+}
+const closeConfirmSaveAll = async () => {
+    isConfirmSaveAll.value = false
+    
+}
+
+// moving pages
 const nextStep = async () => {
     progress.value = 100
     navigateTo("/admin/data-anggota/register-wizard/step-final")

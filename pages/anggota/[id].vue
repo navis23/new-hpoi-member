@@ -78,7 +78,7 @@
         <div class="relative pb-10 px-4 lg:px-32">
             <div class="relative z-40 grid grid-cols-12 rounded-xl items-center gap-6 ">
                 <div v-motion-slide-visible-once-left :delay="400" class="relative flex gap-4 justify-between items-center col-span-12 lg:col-span-4 rounded-xl">
-                    <nuxt-img src="/img/wisata.png" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center w-full rounded-lg"/>
+                    <nuxt-img src="/img/outhpoi.png" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center w-full rounded-lg"/>
                 </div>
                 <div v-motion-slide-visible-once-right :delay="500" class="col-span-12 lg:col-span-8 flex flex-col gap-3 lg:gap-4 lg:pl-6">
                     <h3 class="font-oswald text-3xl lg:text-4xl 2xl:text-5xl tracking-tight text-gsi-darkblue"><span class="text-hpoi-main">Layanan</span> Kami</h3>

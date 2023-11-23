@@ -19,14 +19,14 @@
                             <div>
                                 <!-- logo -->
                                 <FormKit
-                                    v-if="logo_img_temp == null && logoIndicator == ''"
+                                    v-if="logo_img_temp == '' && logoIndicator == ''"
                                     type="file"
                                     label="Gambar Logo"
                                     accept=".png, .jpg, .jpeg, .svg"
                                     help="Masukkan gambar logo anda yang sesuai."
                                     multiple="false"
                                     @change="uploadLogo"
-                                    :disabled="logo_img_temp != null  || uploading == true"
+                                    :disabled="logo_img_temp != ''  || uploading == true"
                                 />
 
                                 <div v-if="uploading == true && logoIndicator == 'upload'" class="w-full pb-4">
@@ -39,21 +39,21 @@
                                     </p>
                                 </div>
 
-                                <div v-if="logo_img_temp != null && logoIndicator == ''" class="w-full pb-4">
+                                <div v-if="logo_img_temp != '' && logoIndicator == ''" class="w-full pb-4">
                                     <p class="font-oswald text-sm font-semibold pb-2">Gambar Logo</p>
                                     <p class="font-oswald text-xs text-gray-500">Gambar Logo sudah dipilih, silahkan klik tombol Ganti File untuk merubah file gambar logo anda</p>
                                 </div>
                                 
                                 <!-- hero -->
                                 <FormKit
-                                    v-if="hero_img_temp == null && heroIndicator == ''"
+                                    v-if="hero_img_temp == '' && heroIndicator == ''"
                                     type="file"
                                     label="Gambar Hero Utama"
                                     accept=".png, .jpg, .jpeg, .svg"
                                     help="Masukkan gambar utama anda sebagai preview terdepan."
                                     multiple="false"
                                     @change="uploadHero"
-                                    :disabled="hero_img_temp != null  || uploading == true"
+                                    :disabled="hero_img_temp != ''  || uploading == true"
                                 />
 
                                 <div v-if="uploading == true && heroIndicator == 'upload'" class="w-full pb-4">
@@ -66,7 +66,7 @@
                                     </p>
                                 </div>
 
-                                <div v-if="hero_img_temp != null && heroIndicator == ''" class="w-full pb-4">
+                                <div v-if="hero_img_temp != '' && heroIndicator == ''" class="w-full pb-4">
                                     <p class="font-oswald text-sm font-semibold pb-2">Gambar Hero Utama</p>
                                     <p class="font-oswald text-xs text-gray-500">Gambar Hero utama sudah dipilih, silahkan klik tombol Ganti File untuk merubah file gambar hero utama anda</p>
                                 </div>
@@ -75,14 +75,14 @@
                             <div class="pt-4">
                                 <!-- gallery one -->
                                 <FormKit
-                                    v-if="gallery_one_temp == null && imgOneIndicator == ''"
+                                    v-if="gallery_one_temp == '' && imgOneIndicator == ''"
                                     type="file"
                                     label="Gambar Galeri 1"
                                     accept=".png, .jpg, .jpeg, .svg"
                                     help="Masukkan gambar pendukung galeri anda."
                                     multiple="false"
                                     @change="uploadImgOne"
-                                    :disabled="gallery_one_temp != null || uploading == true"
+                                    :disabled="gallery_one_temp != '' || uploading == true"
                                 />
 
                                 <div v-if="uploading == true && imgOneIndicator == 'upload'" class="w-full pb-4">
@@ -95,21 +95,21 @@
                                     </p>
                                 </div>
 
-                                <div v-if="gallery_one_temp != null && imgOneIndicator == ''" class="w-full pb-4">
+                                <div v-if="gallery_one_temp != '' && imgOneIndicator == ''" class="w-full pb-4">
                                     <p class="font-oswald text-sm font-semibold pb-2">Gambar Galeri 1</p>
                                     <p class="font-oswald text-xs text-gray-500">Gambar Galeri 1 sudah dipilih, silahkan klik tombol Ganti File untuk merubah file gambar Galeri 1 anda</p>
                                 </div>
 
                                 <!-- gallery two -->
                                 <FormKit
-                                    v-if="gallery_two_temp == null && imgTwoIndicator == ''"
+                                    v-if="gallery_two_temp == '' && imgTwoIndicator == ''"
                                     type="file"
                                     label="Gambar Galeri 2"
                                     accept=".png, .jpg, .jpeg, .svg"
                                     help="Masukkan gambar pendukung galeri anda."
                                     multiple="false"
                                     @change="uploadImgTwo"
-                                    :disabled="gallery_two_temp != null || uploading == true"
+                                    :disabled="gallery_two_temp != '' || uploading == true"
                                 />
 
                                 <div v-if="uploading == true && imgTwoIndicator == 'upload'" class="w-full pb-4">
@@ -122,21 +122,21 @@
                                     </p>
                                 </div>
 
-                                <div v-if="gallery_two_temp != null && imgTwoIndicator == ''" class="w-full pb-4">
+                                <div v-if="gallery_two_temp != '' && imgTwoIndicator == ''" class="w-full pb-4">
                                     <p class="font-oswald text-sm font-semibold pb-2">Gambar Galeri 2</p>
                                     <p class="font-oswald text-xs text-gray-500">Gambar Galeri 2 sudah dipilih, silahkan klik tombol Ganti File untuk merubah file gambar Galeri 2 anda</p>
                                 </div>
 
                                 <!-- gallery three -->
                                 <FormKit
-                                    v-if="gallery_three_temp == null && imgThreeIndicator == ''"
+                                    v-if="gallery_three_temp == '' && imgThreeIndicator == ''"
                                     type="file"
                                     label="Gambar Galeri 3"
                                     accept=".png, .jpg, .jpeg, .svg"
                                     help="Masukkan gambar pendukung galeri anda."
                                     multiple="false"
                                     @change="uploadImgThree"
-                                    :disabled="gallery_three_temp != null || uploading == true"
+                                    :disabled="gallery_three_temp != '' || uploading == true"
                                 />
 
                                 <div v-if="uploading == true && imgThreeIndicator == 'upload'" class="w-full pb-4">
@@ -149,21 +149,21 @@
                                     </p>
                                 </div>
 
-                                <div v-if="gallery_three_temp != null && imgThreeIndicator == ''" class="w-full pb-4">
+                                <div v-if="gallery_three_temp != '' && imgThreeIndicator == ''" class="w-full pb-4">
                                     <p class="font-oswald text-sm font-semibold pb-2">Gambar Galeri 3</p>
                                     <p class="font-oswald text-xs text-gray-500">Gambar Galeri 3 sudah dipilih, silahkan klik tombol Ganti File untuk merubah file gambar Galeri 3 anda</p>
                                 </div>
 
                                 <!-- gallery four -->
                                 <FormKit
-                                    v-if="gallery_four_temp == null && imgFourIndicator == ''"
+                                    v-if="gallery_four_temp == '' && imgFourIndicator == ''"
                                     type="file"
                                     label="Gambar Galeri 4"
                                     accept=".png, .jpg, .jpeg, .svg"
                                     help="Masukkan gambar pendukung galeri anda."
                                     multiple="false"
                                     @change="uploadImgFour"
-                                    :disabled="gallery_four_temp != null || uploading == true"
+                                    :disabled="gallery_four_temp != '' || uploading == true"
                                 />
 
                                 <div v-if="uploading == true && imgFourIndicator == 'upload'" class="w-full pb-4">
@@ -176,7 +176,7 @@
                                     </p>
                                 </div>
 
-                                <div v-if="gallery_four_temp != null && imgFourIndicator == ''" class="w-full pb-4">
+                                <div v-if="gallery_four_temp != '' && imgFourIndicator == ''" class="w-full pb-4">
                                     <p class="font-oswald text-sm font-semibold pb-2">Gambar Galeri 4</p>
                                     <p class="font-oswald text-xs text-gray-500">Gambar Galeri 4 sudah dipilih, silahkan klik tombol Ganti File untuk merubah file gambar Galeri 4 anda</p>
                                 </div>
@@ -204,7 +204,7 @@
                         <div class="font-oswald text-sm overflow-hidden pb-4">
                             <div class="flex gap-x-2 items-center justify-start pb-2">
                                 <p>Preview Logo </p>
-                                <button v-if="logo_img_temp != null && deleting == false" @click="deleteImageLogo()">
+                                <button v-if="logo_img_temp != '' && deleting == false" @click="deleteImageLogo()">
                                     <Badge class="danger flex gap-x-1 items-center">
                                         <Icon name="lucide:x-circle" class="text-sm text-red-500" />
                                         <p>
@@ -225,7 +225,7 @@
                         <div class="font-oswald text-sm overflow-hidden pb-4">
                             <div class="flex gap-x-2 items-center justify-start pb-2">
                                 <p>Preview Hero Utama </p>
-                                <button v-if="hero_img_temp != null && deleting == false" @click="deleteImageHero()">
+                                <button v-if="hero_img_temp != '' && deleting == false" @click="deleteImageHero()">
                                     <Badge class="danger flex gap-x-1 items-center">
                                         <Icon name="lucide:x-circle" class="text-sm text-red-500" />
                                         <p>
@@ -244,10 +244,10 @@
                         </div>
 
                         <div class="grid grid-cols-2 border-t-2 pt-3 gap-2">
-                            <div class="font-oswald text-sm overflow-hidden">
+                            <div class="font-oswald text-xs overflow-hidden">
                                 <div class="flex gap-x-2 items-center justify-start pb-2">
                                     <p>Preview Galeri 1 </p>
-                                    <button v-if="gallery_one_temp != null && deleting == false" @click="deleteImageImgOne()">
+                                    <button v-if="gallery_one_temp != '' && deleting == false" @click="deleteImageImgOne()">
                                         <Badge class="danger flex gap-x-1 items-center">
                                             <Icon name="lucide:x-circle" class="text-sm text-red-500" />
                                             <p>
@@ -265,10 +265,10 @@
                                 <nuxt-img v-if="gallery_one_temp && imgOneIndicator == ''" :src="gallery_one_temp" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-30 rounded"/>
                             </div>
 
-                            <div class="font-oswald text-sm overflow-hidden">
+                            <div class="font-oswald text-xs overflow-hidden">
                                 <div class="flex gap-x-2 items-center justify-start pb-2">
                                     <p>Preview Galeri 2 </p>
-                                    <button v-if="gallery_two_temp != null && deleting == false" @click="deleteImageImgTwo()">
+                                    <button v-if="gallery_two_temp != '' && deleting == false" @click="deleteImageImgTwo()">
                                         <Badge class="danger flex gap-x-1 items-center">
                                             <Icon name="lucide:x-circle" class="text-sm text-red-500" />
                                             <p>
@@ -286,10 +286,10 @@
                                 <nuxt-img v-if="gallery_two_temp && imgTwoIndicator == ''" :src="gallery_two_temp" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-30 rounded"/>
                             </div>
 
-                            <div class="font-oswald text-sm overflow-hidden">
+                            <div class="font-oswald text-xs overflow-hidden">
                                 <div class="flex gap-x-2 items-center justify-start pb-2">
                                     <p>Preview Galeri 3 </p>
-                                    <button v-if="gallery_three_temp != null && deleting == false" @click="deleteImageImgThree()">
+                                    <button v-if="gallery_three_temp != '' && deleting == false" @click="deleteImageImgThree()">
                                         <Badge class="danger flex gap-x-1 items-center">
                                             <Icon name="lucide:x-circle" class="text-sm text-red-500" />
                                             <p>
@@ -307,10 +307,10 @@
                                 <nuxt-img v-if="gallery_three_temp && imgThreeIndicator == ''" :src="gallery_three_temp" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-30 rounded"/>
                             </div>
 
-                            <div class="font-oswald text-sm overflow-hidden">
+                            <div class="font-oswald text-xs overflow-hidden">
                                 <div class="flex gap-x-2 items-center justify-start pb-2">
                                     <p>Preview Galeri 4 </p>
-                                    <button v-if="gallery_four_temp != null && deleting == false" @click="deleteImageImgFour()">
+                                    <button v-if="gallery_four_temp != '' && deleting == false" @click="deleteImageImgFour()">
                                         <Badge class="danger flex gap-x-1 items-center">
                                             <Icon name="lucide:x-circle" class="text-sm text-red-500" />
                                             <p>
@@ -433,6 +433,10 @@ const fetchImageTemp = async () => {
     if(gambar_temp.value.length != 0) {
         await getNameLogo()
         await getNameHero()
+        await getNameImgOne()
+        await getNameImgTwo()
+        await getNameImgThree()
+        await getNameImgFour()
         logo_img_temp.value = await gambar_temp.value[0].logo_img_temp
         hero_img_temp.value = await gambar_temp.value[0].hero_img_temp
         gallery_one_temp.value = await gambar_temp.value[0].gallery_one_temp
@@ -451,7 +455,7 @@ const reFetchData = async () => {
         .eq('user_id', user.value?.id)
         , { transform: (result : any) => result.data }
     )
-
+    imagesAll_temp.value = await gambar_temp.value
     await fetchImageTemp()
 }
 
@@ -593,7 +597,7 @@ const setDataImgFour = async () => {
         .from('hpoi_gambartemp')
         .upsert({user_id: user.value?.id, gallery_four_temp: imgFourUrl.value })
         .select()
-
+        
         await reFetchData()
     } else {
         console.log('data ditemukan gas update')
@@ -616,7 +620,7 @@ const setDataImgFour = async () => {
 const updateUrlLogo = async () => {
     const { data, error } = await client
         .from('hpoi_gambartemp')
-        .update({ logo_img_temp: null })
+        .update({ logo_img_temp: '' })
         .eq('user_id', user.value?.id)
         .select()
         
@@ -628,7 +632,7 @@ const updateUrlLogo = async () => {
 const updateUrlHero = async () => {
     const { data, error } = await client
         .from('hpoi_gambartemp')
-        .update({ hero_img_temp: null })
+        .update({ hero_img_temp: '' })
         .eq('user_id', user.value?.id)
         .select()
         
@@ -640,7 +644,7 @@ const updateUrlHero = async () => {
 const updateUrlImgOne = async () => {
     const { data, error } = await client
         .from('hpoi_gambartemp')
-        .update({ gallery_one_temp: null })
+        .update({ gallery_one_temp: '' })
         .eq('user_id', user.value?.id)
         .select()
         
@@ -652,7 +656,7 @@ const updateUrlImgOne = async () => {
 const updateUrlImgTwo = async () => {
     const { data, error } = await client
         .from('hpoi_gambartemp')
-        .update({ gallery_two_temp: null })
+        .update({ gallery_two_temp: '' })
         .eq('user_id', user.value?.id)
         .select()
         
@@ -664,7 +668,7 @@ const updateUrlImgTwo = async () => {
 const updateUrlImgThree = async () => {
     const { data, error } = await client
         .from('hpoi_gambartemp')
-        .update({ gallery_three_temp: null })
+        .update({ gallery_three_temp: '' })
         .eq('user_id', user.value?.id)
         .select()
         
@@ -676,11 +680,12 @@ const updateUrlImgThree = async () => {
 const updateUrlImgFour = async () => {
     const { data, error } = await client
         .from('hpoi_gambartemp')
-        .update({ gallery_four_temp: null })
+        .update({ gallery_four_temp: '' })
         .eq('user_id', user.value?.id)
         .select()
         
         console.log('update process after delete image')
+        console.log(data)
     
     await reFetchData()
 }
@@ -689,14 +694,14 @@ const updateUrlImgFour = async () => {
 const deleteImageLogo = async () => {
     deleting.value = true
     logoIndicator.value = 'delete'
-    await updateUrlLogo()
-
-    const { error } = await client
-        .storage
-        .from('hpoi_images')
-        .remove([user.value?.id +"/"+ logoName.value])
     
-        console.log('error ta ' +error)
+    const { error } = await client
+    .storage
+    .from('hpoi_images')
+    .remove([user.value?.id +"/"+ logoName.value])
+    
+    console.log('error ta ' +error)
+    await updateUrlLogo()
     
     setTimeout(async () => {
         deleting.value = false
@@ -708,14 +713,14 @@ const deleteImageLogo = async () => {
 const deleteImageHero = async () => {
     deleting.value = true
     heroIndicator.value = 'delete'
-    await updateUrlHero()
-
-    const { error } = await client
-        .storage
-        .from('hpoi_images')
-        .remove([user.value?.id +"/"+ heroName.value])
     
-        console.log('error ta ' +error)
+    const { error } = await client
+    .storage
+    .from('hpoi_images')
+    .remove([user.value?.id +"/"+ heroName.value])
+    
+    console.log('error ta ' +error)
+    await updateUrlHero()
     
     setTimeout(async () => {
         deleting.value = false
@@ -727,14 +732,14 @@ const deleteImageHero = async () => {
 const deleteImageImgOne = async () => {
     deleting.value = true
     imgOneIndicator.value = 'delete'
-    await updateUrlImgOne()
-
-    const { error } = await client
-        .storage
-        .from('hpoi_images')
-        .remove([user.value?.id +"/"+ imgOneName.value])
     
-        console.log('error ta ' +error)
+    const { error } = await client
+    .storage
+    .from('hpoi_images')
+    .remove([user.value?.id +"/"+ imgOneName.value])
+    
+    console.log('error ta ' +error)
+    await updateUrlImgOne()
     
     setTimeout(async () => {
         deleting.value = false
@@ -746,14 +751,14 @@ const deleteImageImgOne = async () => {
 const deleteImageImgTwo = async () => {
     deleting.value = true
     imgTwoIndicator.value = 'delete'
-    await updateUrlImgTwo()
-
-    const { error } = await client
-        .storage
-        .from('hpoi_images')
-        .remove([user.value?.id +"/"+ imgTwoName.value])
     
-        console.log('error ta ' +error)
+    const { error } = await client
+    .storage
+    .from('hpoi_images')
+    .remove([user.value?.id +"/"+ imgTwoName.value])
+    
+    console.log('error ta ' +error)
+    await updateUrlImgTwo()
     
     setTimeout(async () => {
         deleting.value = false
@@ -765,14 +770,14 @@ const deleteImageImgTwo = async () => {
 const deleteImageImgThree = async () => {
     deleting.value = true
     imgThreeIndicator.value = 'delete'
-    await updateUrlImgThree()
-
-    const { error } = await client
-        .storage
-        .from('hpoi_images')
-        .remove([user.value?.id +"/"+ imgThreeName.value])
     
-        console.log('error ta ' +error)
+    const { error } = await client
+    .storage
+    .from('hpoi_images')
+    .remove([user.value?.id +"/"+ imgThreeName.value])
+    
+    console.log('error ta ' +error)
+    await updateUrlImgThree()
     
     setTimeout(async () => {
         deleting.value = false
@@ -793,10 +798,12 @@ const deleteImageImgFour = async () => {
     
         console.log('error ta ' +error)
     
-    setTimeout(async () => {
-        deleting.value = false
-        imgFourIndicator.value = ''
-    }, 1000);
+        if(error == null) {
+            setTimeout(async () => {
+                deleting.value = false
+                imgFourIndicator.value = ''
+            }, 1000);
+        }
 
 }
 
@@ -936,7 +943,7 @@ const getNameImgFour  = async () => {
             search: 'four_img_'
         })
 
-        if (data?.length == 0) return
+        if (data?.length == 0) return error
 
         if(data != null ) {
             imgFourName.value = data[0].name
@@ -1094,11 +1101,13 @@ const uploadImgFour = async (event: any) => {
 // next/back step 
 const nextStep = async () => {
     progress.value = 100
+    imagesAll_temp.value = []
     navigateTo("/admin/data-anggota/register-wizard/step-final")
 }
 
 const backStep = async () => {
     progress.value = 60
+    imagesAll_temp.value = []
     navigateTo("/admin/data-anggota/register-wizard/step-four")
 }
 

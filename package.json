@@ -9,14 +9,15 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.7.6",
-    "@nuxt/image": "^1.0.0",
+    "@nuxt/devtools": "^1.0.3",
+    "@nuxt/image": "^1.1.0",
     "@nuxtjs/supabase": "^1.1.4",
-    "@types/node": "^18.18.10",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+    "@types/node": "^20.9.3",
     "autoprefixer": "^10.4.16",
-    "nuxt": "^3.8.1",
+    "nuxt": "^3.8.2",
     "nuxt-headlessui": "^1.1.4",
-    "nuxt-icon": "^0.4.2",
+    "nuxt-icon": "^0.6.6",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5"
   },
@@ -24,11 +25,11 @@
     "vue": "latest"
   },
   "dependencies": {
-    "@formkit/icons": "^0.17.5",
-    "@formkit/nuxt": "^0.17.5",
-    "@formkit/themes": "^0.17.5",
-    "@headlessui/tailwindcss": "^0.1.3",
-    "@pinia/nuxt": "^0.4.11",
+    "@formkit/icons": "^1.3.0",
+    "@formkit/nuxt": "^1.3.0",
+    "@formkit/themes": "^1.3.0",
+    "@headlessui/tailwindcss": "^0.2.0",
+    "@pinia/nuxt": "^0.5.1",
     "@vueuse/motion": "^2.0.0",
     "axios": "^1.6.2",
     "pinia": "^2.1.7"

@@ -8,11 +8,11 @@
                     <h1 class="font-oswald text-4xl lg:text-7xl font-semibold">{{ nama_provider }}</h1>
                 </div>
                 <div v-motion-slide-left :delay="300" class="w-full md:h-[22rem] rounded-xl overflow-hidden flex items-center justify-center ">
-                    <nuxt-img :src="hero_img_temp" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center w-full rounded-lg"/>
+                    <nuxt-img v-if="hero_img_temp" :src="hero_img_temp" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center w-full rounded-lg"/>
                 </div>
                 <div v-motion-slide-right :delay="300"  class="grid grid-cols-12 w-full gap-y-3">
                     <div class="lg:col-span-2 col-span-6 h-28 w-28 overflow-hidden flex items-center shadow rounded-xl">
-                        <nuxt-img :src="logo_img_temp" format="webp" loading="lazy" sizes="sm:50vw" class=" object-fill object-center w-full rounded-lg"/>
+                        <nuxt-img v-if="logo_img_temp" :src="logo_img_temp" format="webp" loading="lazy" sizes="sm:50vw" class=" object-fill object-center w-full rounded-lg"/>
                     </div>
                     
                     <div class="flex flex-col justify-end lg:col-span-2 col-span-6">
@@ -77,7 +77,7 @@
         <div class="relative pb-10 px-4 lg:px-32">
             <div class="relative z-40 grid grid-cols-12 rounded-xl items-center gap-6 ">
                 <div v-motion-slide-visible-once-left :delay="400" class="relative flex gap-4 justify-between items-center col-span-12 lg:col-span-4 rounded-xl">
-                    <nuxt-img src="/img/wisata.png" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center w-full rounded-lg"/>
+                    <nuxt-img src="/img/outhpoi.png" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center w-full rounded-lg"/>
                 </div>
                 <div v-motion-slide-visible-once-right :delay="500" class="col-span-12 lg:col-span-8 flex flex-col gap-3 lg:gap-4 lg:pl-6">
                     <h3 class="font-oswald text-3xl lg:text-4xl 2xl:text-5xl tracking-tight text-gsi-darkblue"><span class="text-hpoi-main">Layanan</span> Kami</h3>
@@ -164,10 +164,10 @@
         <div class="relative min-h-screen bg-gray-800 px-4 lg:px-64 py-20 overflow-hidden">
             <h3 class="font-oswald relative z-20 text-center text-3xl lg:text-4xl 2xl:text-5xl tracking-tight text-gsi-smokewhite"><span class="text-hpoi-main">Mini</span> Galeri</h3>
             <div v-motion-fade-visible-once class="relative z-20 grid grid-cols-6 flex-wrap gap-6 py-10">
-                <nuxt-img :src="gallery_one_temp" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
-                <nuxt-img :src="gallery_two_temp" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
-                <nuxt-img :src="gallery_three_temp" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
-                <nuxt-img :src="gallery_four_temp" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
+                <nuxt-img v-if="gallery_one_temp" :src="gallery_one_temp" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
+                <nuxt-img v-if="gallery_two_temp" :src="gallery_two_temp" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
+                <nuxt-img v-if="gallery_three_temp" :src="gallery_three_temp" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
+                <nuxt-img v-if="gallery_four_temp" :src="gallery_four_temp" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
             </div>
             <p class="absolute py-10 right-0 opacity-20 md:opacity-50 top-32">
                 <Icon name="PatternThree" class="text-[20rem] rotate-90 "/>

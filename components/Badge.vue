@@ -15,6 +15,9 @@
 .warning {
     @apply bg-yellow-100 text-yellow-700 
 }
+.hpoi {
+    @apply bg-orange-50 text-hpoi-main 
+}
 .muted {
     @apply bg-slate-100 text-slate-700
 }
