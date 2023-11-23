@@ -2,7 +2,7 @@
     <div class="relative overflow-hidden">
         
         <!-- top navbar -->
-        <nav class="absolute px-4 lg:px-32 w-full h-16 flex items-center justify-between z-[99]">
+        <nav class="absolute px-4 md:px-8 lg:px-16 xl:px-32 w-full h-16 flex items-center justify-between z-[99]">
             <div class="flex items-center justify-start w-44">
                 <nuxt-link to="/">
                     <nuxt-img src="/img/hpoi.png" format="webp" loading="lazy" sizes="sm:25vw" class="object-cover object-center h-10"/>
@@ -16,25 +16,25 @@
             </div>
         </nav>
         <nav v-if="detail_anggota != null" class="hidden lg:block">
-            <div class="absolute px-4 top-16 lg:px-32 w-full h-20 flex bg-gray-800 items-center justify-center z-[99]">
+            <div class="absolute px-4 top-16 md:px-8 lg:px-16 xl:px-32 w-full h-20 flex bg-gray-800 items-center justify-center z-[99]">
                 <div class="flex gap-x-6 justify-between ">
-                    <ButtonBaseSmall @click="logout()" class="mono shadow flex justify-center items-center gap-x-1">
+                    <ButtonBaseSmall @click="goEditProfil()" class="mono shadow flex justify-center items-center gap-x-1">
                         <Icon name="lucide:contact" class="text-xl" />
                         <span>Edit Profil</span>
                     </ButtonBaseSmall>
-                    <ButtonBaseSmall @click="logout()" class="mono shadow flex justify-center items-center gap-x-1">
+                    <ButtonBaseSmall @click="goEditContact()" class="mono shadow flex justify-center items-center gap-x-1">
                         <Icon name="lucide:home" class="text-xl" />
                         <span>Edit Kontak</span>
                     </ButtonBaseSmall>
-                    <ButtonBaseSmall @click="logout()" class="mono shadow flex justify-center items-center gap-x-1">
+                    <ButtonBaseSmall @click="goEditSosmed()" class="mono shadow flex justify-center items-center gap-x-1">
                         <Icon name="lucide:tablet-smartphone" class="text-xl" />
                         <span>Edit Sosial Media</span>
                     </ButtonBaseSmall>
-                    <ButtonBaseSmall @click="logout()" class="mono shadow flex justify-center items-center gap-x-1">
+                    <ButtonBaseSmall @click="goEditLayanan()" class="mono shadow flex justify-center items-center gap-x-1">
                         <Icon name="lucide:scroll-text" class="text-xl" />
                         <span>Edit Layanan & Deskripsi</span>
                     </ButtonBaseSmall>
-                    <ButtonBaseSmall @click="logout()" class="mono shadow flex justify-center items-center gap-x-1">
+                    <ButtonBaseSmall @click="goEditGambar()" class="mono shadow flex justify-center items-center gap-x-1">
                         <Icon name="lucide:image-down" class="text-xl" />
                         <span>Edit Logo & Gambar</span>
                     </ButtonBaseSmall>
@@ -43,7 +43,7 @@
         </nav>
         
         <!-- start section -->
-        <div v-if="detail_anggota == null" class="relative min-h-screen bg-gray-800 px-4 lg:px-32 overflow-hidden">
+        <div v-if="detail_anggota == null" class="relative min-h-screen bg-gray-800 px-4 md:px-8 lg:px-16 xl:px-32 overflow-hidden">
             <div class="relative z-40 flex flex-col gap-3 w-full min-h-screen items-center justify-center">
                 <h3 class="font-oswald text-gsi-smokewhite text-4xl text-center">
                     <span class="text-gsi-gold">{{ user?.email }} </span>
@@ -65,7 +65,7 @@
         </div>
 
         <!-- data is completed -->
-        <div v-if="detail_anggota != null" class="relative min-h-screen my-20 lg:mt-44 px-4 lg:px-32 overflow-hidden">
+        <div v-if="detail_anggota != null" class="relative min-h-screen my-20 lg:mt-44 px-4 md:px-8 lg:px-16 xl:px-32 overflow-hidden">
             <div class="font-oswald w-full text-center mb-5 lg:mb-10 text-gsi-darkblue">
                 <h1 class="text-2xl lg:text-4xl">
                     Hai {{ detail_anggota?.hpoi_anggota.nama_provider }}, 
@@ -74,14 +74,14 @@
                     Selamat Datang di Dashboard Member Area
                 </h3>
             </div>
-            <div class="relative z-40 grid grid-cols-12 gap-6">
+            <div class="relative z-40 grid grid-cols-12 pb-10 gap-6">
                 <!-- profil view -->
-                <div class="col-span-12 lg:col-span-4 bg-gray-50 rounded-xl shadow p-6">
+                <div class="col-span-12 lg:col-span-4 bg-gray-50 rounded-xl shadow p-6 overflow-hidden">
                     <div class="flex items-center justify-between border-b-2 pb-2 mb-2">
                         <p class="font-oswald text-xl font-bold text-hpoi-main">
                             Data Profil
                         </p>
-                        <ButtonBaseSmall class="">
+                        <ButtonBaseSmall @click="goEditProfil()" class="">
                             <Icon name="lucide:edit" class="text-lg" />
                             <span>Edit Data</span>
                         </ButtonBaseSmall>
@@ -125,18 +125,19 @@
                         </div>
                     </div>
                 </div>
+                <!-- decoration image -->
                 <div class="hidden lg:block lg:col-span-4 overflow-hidden ">
                     <div class="w-full flex justify-center h-80">
                         <nuxt-img src="/img/outhpoi.png" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-[20.75rem]"/>
                     </div>
                 </div>
                 <!-- contact view -->
-                <div class="col-span-12 lg:col-span-4 bg-gray-50 rounded-xl shadow p-6">
+                <div class="col-span-12 lg:col-span-4 bg-gray-50 rounded-xl shadow p-6 overflow-hidden">
                     <div class="flex items-center justify-between border-b-2 pb-2 mb-2">
                         <p class="font-oswald text-xl font-bold text-hpoi-main">
                             Data Kontak
                         </p>
-                        <ButtonBaseSmall class="">
+                        <ButtonBaseSmall @click="goEditContact()" class="">
                             <Icon name="lucide:edit" class="text-lg" />
                             <span>Edit Data</span>
                         </ButtonBaseSmall>
@@ -182,12 +183,12 @@
                 </div>
 
                 <!-- sosmed view -->
-                <div class="col-span-12 lg:col-span-3 bg-gray-50 rounded-xl shadow p-6">
+                <div class="col-span-12 lg:col-span-3 bg-gray-50 rounded-xl shadow p-6 overflow-hidden">
                     <div class="flex items-center justify-between border-b-2 pb-2 mb-2">
                         <p class="font-oswald text-xl font-bold text-hpoi-main">
                             Data Sosmed
                         </p>
-                        <ButtonBaseSmall class="">
+                        <ButtonBaseSmall @click="goEditSosmed()" class="">
                             <Icon name="lucide:edit" class="text-lg" />
                             <span>Edit Data</span>
                         </ButtonBaseSmall>
@@ -251,12 +252,12 @@
                 </div>
             
                 <!-- Layanan & Deskripsi view -->
-                <div class="col-span-12 lg:col-span-9 bg-gray-50 rounded-xl shadow p-6">
+                <div class="col-span-12 lg:col-span-9 bg-gray-50 rounded-xl shadow p-6 overflow-hidden">
                     <div class="flex items-center justify-between border-b-2 pb-2 mb-2">
                         <p class="font-oswald text-xl font-bold text-hpoi-main">
                             Data layanan & Deskripsi
                         </p>
-                        <ButtonBaseSmall class="">
+                        <ButtonBaseSmall @click="goEditLayanan()" class="">
                             <Icon name="lucide:edit" class="text-lg" />
                             <span>Edit Data</span>
                         </ButtonBaseSmall>
@@ -294,12 +295,12 @@
                 </div>
             
                 <!-- Gambar view -->
-                <div class="col-span-12 bg-gray-50 rounded-xl shadow p-6">
+                <div class="col-span-12 bg-gray-50 rounded-xl shadow p-6 overflow-hidden">
                     <div class="flex items-center justify-between border-b-2 pb-2 mb-2">
                         <p class="font-oswald text-xl font-bold text-hpoi-main">
                             Data Gambar & Logo
                         </p>
-                        <ButtonBaseSmall class="">
+                        <ButtonBaseSmall @click="goEditGambar()" class="">
                             <Icon name="lucide:edit" class="text-lg" />
                             <span>Edit Data</span>
                         </ButtonBaseSmall>
@@ -307,19 +308,19 @@
                     <div class="grid grid-cols-12 gap-5 font-oswald">
                         <div class="col-span-12 lg:col-span-2 text-gsi-darkblue">
                             <p class="text-base pb-3">Gambar Logo</p>
-                            <nuxt-img  :src="detail_anggota?.hpoi_anggota.logo_img" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-16 rounded"/>
+                            <nuxt-img v-if="detail_anggota?.hpoi_anggota.logo_img"  :src="detail_anggota?.hpoi_anggota.logo_img" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-16 rounded"/>
                         </div>
                         <div class="col-span-12 lg:col-span-5 text-gsi-darkblue">
                             <p class="text-base pb-3">Gambar Hero Utama</p>
-                            <nuxt-img  :src="detail_anggota?.hpoi_anggota.hero_img" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center rounded"/>
+                            <nuxt-img v-if="detail_anggota?.hpoi_anggota.hero_img"  :src="detail_anggota?.hpoi_anggota.hero_img" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center rounded"/>
                         </div>
                         <div class="col-span-12 lg:col-span-5 text-gsi-darkblue">
                             <p class="text-base pb-3">Gambar Galeri</p>
                             <div class="grid grid-cols-2 gap-2">
-                                <nuxt-img  :src="detail_anggota?.hpoi_anggota.gallery_one" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center rounded"/>
-                                <nuxt-img  :src="detail_anggota?.hpoi_anggota.gallery_two" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center rounded"/>
-                                <nuxt-img  :src="detail_anggota?.hpoi_anggota.gallery_three" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center rounded"/>
-                                <nuxt-img  :src="detail_anggota?.hpoi_anggota.gallery_four" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center rounded"/>
+                                <nuxt-img v-if="detail_anggota?.hpoi_anggota.gallery_one"  :src="detail_anggota?.hpoi_anggota.gallery_one" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center rounded"/>
+                                <nuxt-img v-if="detail_anggota?.hpoi_anggota.gallery_two"  :src="detail_anggota?.hpoi_anggota.gallery_two" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center rounded"/>
+                                <nuxt-img v-if="detail_anggota?.hpoi_anggota.gallery_three"  :src="detail_anggota?.hpoi_anggota.gallery_three" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center rounded"/>
+                                <nuxt-img v-if="detail_anggota?.hpoi_anggota.gallery_four"  :src="detail_anggota?.hpoi_anggota.gallery_four" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center rounded"/>
                             </div>
                         </div>
                     </div>
@@ -411,9 +412,9 @@ const {
 const { data: detail_anggota } = await useAsyncData('detail_anggota', async () => client
     .from('hpoi_detail_anggota')
     .select(`
-        featured,
+        *,
         hpoi_anggota!inner(*),
-        hpoi_dpc( nama_dpc )
+        hpoi_dpc(*)
     `)
     .eq('hpoi_anggota.email',`${user.value?.email}`)
     .single()
@@ -439,8 +440,25 @@ const logout = async () => {
     
 }
 
+// flying to another page
 const goWizard = async () => {
     navigateTo("/admin/data-anggota/register-wizard")
+}
+
+const goEditProfil = async () => {
+    navigateTo("/admin/data-anggota/edit-wizard")
+}
+const goEditContact = async () => {
+    navigateTo("/admin/data-anggota/edit-wizard/edit-two")
+}
+const goEditSosmed = async () => {
+    navigateTo("/admin/data-anggota/edit-wizard/edit-three")
+}
+const goEditLayanan = async () => {
+    navigateTo("/admin/data-anggota/edit-wizard/edit-four")
+}
+const goEditGambar = async () => {
+    navigateTo("/admin/data-anggota/edit-wizard/edit-five")
 }
 </script>
 

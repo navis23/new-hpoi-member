@@ -226,13 +226,6 @@ const fetchDataDpc = async () => {
         , { transform: (result : any) => result.data }
     )
 
-    // if(error){
-    //     console.log(error.value?.message)
-    //     setTimeout(async () => {
-    //         loading.value = false
-    //     }, 1000);
-    // }
-
     if(list_dpc.value){
         dpcAll.value = list_dpc.value
         setTimeout(async () => {

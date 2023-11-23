@@ -1,16 +1,55 @@
 <template>
     <!-- top navbar -->
     <nav class="fixed px-4 lg:px-32 w-full h-16 flex items-center bg-gray-50 shadow justify-between z-[99]">
-        <div class="flex items-center justify-start w-44">
+        <div 
+        v-if="
+        route.fullPath == '/admin/data-anggota/register-wizard' ||
+        route.fullPath == '/admin/data-anggota/register-wizard/step-two' ||
+        route.fullPath == '/admin/data-anggota/register-wizard/step-three' ||
+        route.fullPath == '/admin/data-anggota/register-wizard/step-four' ||
+        route.fullPath == '/admin/data-anggota/register-wizard/step-five' ||
+        route.fullPath == '/admin/data-anggota/register-wizard/step-final' ||
+        route.fullPath == '/admin/data-anggota/register-wizard/preview'
+        "
+        class="flex items-center justify-start w-44">
             <h2 class="font-oswald text-xl lg:text-3xl font-semibold uppercase text-gsi-darkblue"><span class="text-hpoi-main">Register</span> Data</h2>
         </div>
+        <div
+        v-if="
+        route.fullPath == '/admin/data-anggota/edit-wizard' ||
+        route.fullPath == '/admin/data-anggota/edit-wizard/edit-two' ||
+        route.fullPath == '/admin/data-anggota/edit-wizard/edit-three' ||
+        route.fullPath == '/admin/data-anggota/edit-wizard/edit-four' ||
+        route.fullPath == '/admin/data-anggota/edit-wizard/edit-five' ||
+        route.fullPath == '/admin/data-anggota/edit-wizard/edit-final'
+        "
+        class="flex items-center justify-start w-44">
+            <h2 class="font-oswald text-xl lg:text-3xl font-semibold uppercase text-gsi-darkblue"><span class="text-hpoi-main">Edit</span> Data</h2>
+        </div>
         <div class="flex items-center justify-end w-44">
-            <nuxt-link v-if="route.fullPath == '/admin/data-anggota/register-wizard'"  to="/admin/data-anggota">
+            <nuxt-link 
+                v-if="
+                    route.fullPath == '/admin/data-anggota/register-wizard'
+                "  
+                to="/admin/data-anggota">
                 <ButtonBaseSmall class="hpoi">
                     <Icon name="lucide:book-user" class="text-xl" />
                     <span>Halaman Profil</span>
                 </ButtonBaseSmall>
             </nuxt-link>
+            <ButtonBaseSmall 
+            v-if="
+            route.fullPath == '/admin/data-anggota/edit-wizard' ||
+            route.fullPath == '/admin/data-anggota/edit-wizard/edit-two' ||
+            route.fullPath == '/admin/data-anggota/edit-wizard/edit-three' ||
+            route.fullPath == '/admin/data-anggota/edit-wizard/edit-four' ||
+            route.fullPath == '/admin/data-anggota/edit-wizard/edit-five' ||
+            route.fullPath == '/admin/data-anggota/edit-wizard/edit-final'
+            " @click="backFromEdit()"
+            class="hpoi">
+                <Icon name="lucide:book-user" class="text-xl" />
+                <span>Halaman Profil</span>
+            </ButtonBaseSmall>
             <p class="font-oswald text-xl lg:text-3xl font-semibold uppercase text-gsi-darkblue">
                 <span v-if="route.fullPath == '/admin/data-anggota/register-wizard/step-two'">
                     _STEP 02
@@ -46,10 +85,16 @@
 <script setup lang="ts">
 const route = useRoute()
 const storeGlobalData = useGlobalDataStore()
+const storeAnggota = useAnggotaStore()
 
 const {
     progress
 } = storeToRefs(storeGlobalData)
+
+const backFromEdit = async () => {
+    storeAnggota.$reset()
+    navigateTo("/admin/data-anggota")
+}
 </script>
 
 <style scoped>
