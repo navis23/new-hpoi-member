@@ -593,7 +593,7 @@ const switchData = async () => {
                         method: 'POST',
                         body: {
                             email_anggota: email_temp.value,
-                            url: `http://localhost:3000/get-card/card-${randData}/${no_anggota_temp.value}`,
+                            url: `https://anggota.hpoi.org/get-card/card-${randData}/${no_anggota_temp.value}`,
                             nama_provider: nama_provider_temp.value,
                             no_anggota: no_anggota_temp.value
                         }
