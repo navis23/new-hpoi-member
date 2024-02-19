@@ -589,13 +589,21 @@ const switchData = async () => {
                 console.log('thisisisis : ' +randData)
 
                 if(activated_temp.value){
-                    const sending = await $fetch('/api/send', {
+                    const sending = await $fetch('https://anggota.hpoi.org/api/send', {
                         method: 'POST',
                         body: {
                             email_anggota: email_temp.value,
                             url: `https://anggota.hpoi.org/get-card/card-${randData}/${no_anggota_temp.value}`,
                             nama_provider: nama_provider_temp.value,
                             no_anggota: no_anggota_temp.value
+                        },
+                        header: {
+                            'Access-Control-Allow-Origin': 'Same-Origin',
+                            'crossOriginResourcePolicy': 'same-origin',
+                            'crossOriginOpenerPolicy': 'same-origin',
+                            'crossOriginEmbedderPolicy': 'require-corp',
+                            'contentSecurityPolicy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+                            'X-XSS-Protection': 1
                         }
                     })
                     console.log(sending)
