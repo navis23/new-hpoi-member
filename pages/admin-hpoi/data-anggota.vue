@@ -589,7 +589,7 @@ const switchData = async () => {
                 console.log('thisisisis : ' +randData)
 
                 if(activated_temp.value){
-                    const sending = await $fetch('https://anggota.hpoi.org/api/send', {
+                    const sending = await $fetch('/api/send', {
                         method: 'POST',
                         body: {
                             email_anggota: email_temp.value,

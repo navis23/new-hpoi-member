@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend('re_ep2Dx5Qu_Kt2Pqug3Tv6qgcSBmrfurJwf');
 
 export default defineEventHandler(async (event) => {
   const { email_anggota, url, nama_provider, no_anggota } = await readBody(event) 
