@@ -26,6 +26,18 @@
                         />
                         
                     </div>
+                    <div v-if="errorExist" class="flex w-full gap-x-1 items-center justify-start my-2">
+                        <Icon name="lucide:x-circle" class="text-hpoi-red text-3xl" />
+                        <p class="text-hpoi-red text-sm">
+                            Email sudah terdaftar, coba login atau gunakan email lain.
+                        </p>
+                    </div>
+                    <div v-if="errorSupa" class="flex w-full gap-x-1 items-center justify-start my-2">
+                        <Icon name="lucide:x-circle" class="text-hpoi-red text-3xl" />
+                        <p class="text-hpoi-red text-sm">
+                            Server Error, silahkan coba lain kali.
+                        </p>
+                    </div>
                     <div class="border-t-2 pt-4">
                         <ButtonBase v-if="loading == false" @click="signUp()" class="flex items-center justify-center gap-x-1 ">
                             <Icon name="lucide:clipboard-check" class="text-2xl" />
@@ -71,47 +83,85 @@ const {
 
 const email = ref('')
 const password = ref('')
+const errorExist = ref(false)
+const errorSupa = ref(false)
 
 
 const signUp = async () => {
     loading.value = true
-    let { data, error } = await client.auth.signUp({
-        email: email.value,
-        password: password.value
-    })
 
-    console.log(data.user?.email)
-
-    if(email.value == data.user?.email){
-        console.log('samaaa')
-        setTimeout(async () => {
-            loading.value = false
-            email.value = ''
-            password.value = ''
-        }, 1000);
-    } else {
-        if(data && email.value != '' && password.value !=''){
-            console.log(data)
+    const { data: anggota , error: err } = await client
+        .from('hpoi_anggota')
+        .select(`
+            email
+        `)
+        .eq('email',`${email.value}`)
+        .single()
+    
+    if(anggota == null){
+        let { data, error } = await client.auth.signUp({
+            email: email.value,
+            password: password.value
+        })
+        
+    
+        console.log(data.user?.email)
+        console.log(error)
+        console.log(data)
+    
+        if(error){
+            console.log('supabase problem')
+            errorSupa.value = true
             setTimeout(async () => {
                 loading.value = false
                 email.value = ''
                 password.value = ''
             }, 1000);
-        } else {
-            console.log(error)
+            
             setTimeout(async () => {
-                loading.value = false
-            }, 1000);
+                errorSupa.value = false
+            }, 5000);
+
+        } else {
+            if(data){
+                console.log(data)
+                setTimeout(async () => {
+                    loading.value = false
+                    email.value = ''
+                    password.value = ''
+                    navigateTo('/secret/confirm')
+                }, 1000);
+            } else {
+                console.log(error)
+                setTimeout(async () => {
+                    loading.value = false
+                }, 1000);
+            }
         }
+    
+    } else{
+        console.log('data exist, change to other email')
+        console.log(err)
+        errorExist.value = true
+        setTimeout(async () => {
+            loading.value = false
+            email.value = ''
+            password.value = ''
+        }, 1000);
+
+        setTimeout(async () => {
+            errorExist.value = false
+        }, 5000);
     }
+    
+
     
 }
 
 const handleIconClick = (node : any, e : any) => {
-  node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'
-  node.props.type = node.props.type === 'password' ? 'text' : 'password'
+    node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'
+    node.props.type = node.props.type === 'password' ? 'text' : 'password'
 }
-
 
 </script>
 

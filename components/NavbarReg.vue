@@ -26,6 +26,13 @@
         class="flex items-center justify-start w-44">
             <h2 class="font-oswald text-xl lg:text-3xl font-semibold uppercase text-gsi-darkblue"><span class="text-hpoi-main">Edit</span> Data</h2>
         </div>
+        <div
+        v-if="
+        route.fullPath == '/admin/data-anggota/edit-wizard/get-card'
+        "
+        class="flex items-center justify-start w-44">
+            <h2 class="font-oswald text-xl lg:text-3xl font-semibold uppercase text-gsi-darkblue"><span class="text-hpoi-main">Unduh</span> kartu</h2>
+        </div>
         <div class="flex items-center justify-end w-44">
             <nuxt-link 
                 v-if="
@@ -44,7 +51,8 @@
             route.fullPath == '/admin/data-anggota/edit-wizard/edit-three' ||
             route.fullPath == '/admin/data-anggota/edit-wizard/edit-four' ||
             route.fullPath == '/admin/data-anggota/edit-wizard/edit-five' ||
-            route.fullPath == '/admin/data-anggota/edit-wizard/edit-final'
+            route.fullPath == '/admin/data-anggota/edit-wizard/edit-final' ||
+            route.fullPath == '/admin/data-anggota/edit-wizard/get-card'
             " @click="backFromEdit()"
             class="hpoi">
                 <Icon name="lucide:book-user" class="text-xl" />

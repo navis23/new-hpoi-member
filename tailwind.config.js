@@ -22,7 +22,10 @@ module.exports = {
         'gsi-gold' : '#fcba56',
         'gsi-brightblue' : '#41c1ba',
         'gsi-smokewhite' : '#f2f1ec',
-        'hpoi-main' : '#ff9933'
+        'hpoi-main' : '#ff9933',
+        'hpoi-red' : '#f93333',
+        'btn-blue' : '#0B549F',
+        'btn-yellow' : '#FCDA31',
       }
     },
   },

@@ -35,6 +35,7 @@ export const useAnggotaStore = defineStore('anggotaStore', {
         facebook_url: '',
         youtube_url: '',
         website_url: '',
+        activated: 0,
         
 
     }),

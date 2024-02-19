@@ -192,7 +192,7 @@
                 <LoadingMini />
             </div>
             <div v-if="loading == false" class="grid grid-cols-12 gap-4">
-                <div v-for="(item, index) in anggotaAll" :key="index" class="relative col-span-12 lg:col-span-4 w-full bg-white shadow transition-all duration-300 rounded-xl group p-3">
+                <div v-for="(item, index) in anggotaActive" :key="index" class="relative col-span-12 lg:col-span-4 w-full bg-white shadow transition-all duration-300 rounded-xl group p-3">
                     <div class="relative">
                         <nuxt-img v-if="item.hpoi_anggota.hero_img" :src="item.hpoi_anggota.hero_img" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                         <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
@@ -251,7 +251,20 @@
                     </div>
                 </div>
             </div>
-            <div v-if="anggotaAll.length == 0 && !loading" class="w-full flex justify-center gap-x-2 items-center">
+            <div v-if="loadingPaginate == true" class="w-full  py-6 flex justify-center items-center">
+                <LoadingMini />
+            </div>
+            <div v-if="anggotaActive.length >= 1 && to < count_anggota.length && !loadingPaginate " class="w-full py-6">
+                <button class="w-full bg-hpoi-main py-4 px-2 font-semibold rounded-lg flex items-center justify-center gap-x-2" @click="paginateFetch()">
+                    <p>
+                        <Icon name="lucide:eye" class="text-2xl"/>
+                    </p>
+                    <p>
+                        Lihat Lebih Banyak Anggota...
+                    </p>
+                </button>
+            </div>
+            <div v-if="anggotaActive.length == 0 && !loading" class="w-full flex justify-center gap-x-2 items-center">
                 <Icon name="lucide:file-warning" class="text-3xl text-red-600"/>
                 <p class="font-oswald">
                     Tidak ada data yang ditemukan, silahkan cari kembali atau refresh data
@@ -271,20 +284,42 @@ const {
 
 const anggotaAll = ref()
 const anggotaFeat = ref()
+const anggotaActive = ref()
+const anggotaPaginated = ref()
 const search = ref('')
+const loadingPaginate = ref(false)
+
+const page = ref(0)
+const from = ref(0)
+const to = ref(5)
+const itemPage = 6
 
 // feth data from api
+const { data: count_anggota } = await useAsyncData('count_anggota', async () => client
+    .from('hpoi_detail_anggota')
+    .select(`
+        id_anggota
+    `)
+    .eq('activated', true)
+    , { transform: (res : any) => res.data }
+) || []
+
 const { data: anggota } = await useAsyncData('anggota', async () => client
     .from('hpoi_detail_anggota')
     .select(`
-        featured,
+        featured, activated,
         hpoi_anggota(nama_provider, telepon, no_anggota, logo_img, hero_img),
         hpoi_dpc( nama_dpc )
     `)
+    .eq('activated', true)
     , { transform: (result : any) => result.data }
 )
-anggotaAll.value = await anggota.value
+
+console.log(count_anggota.value.length)
+
+// anggotaAll.value = await anggota.value
 anggotaFeat.value = await anggota.value
+anggotaActive.value = await anggota.value
 
 // filtered featured member
 const featuredMembers = computed(() =>
@@ -293,17 +328,64 @@ anggotaFeat.value.filter(
     ) || []
 )
 
+const activeMembers = computed(() =>
+anggota.value.filter(
+        (p : any) => p.activated == true
+    ) || []
+)
+
+//  paginate fetch
+const paginateFetch = async () => {
+    loadingPaginate.value = true
+    page.value += 1
+
+    console.log('plus one ' + page.value)
+    console.log('before ' + from.value)
+    if(page.value > 0) {
+        from.value += 1
+    }
+    
+    console.log('after ' + from.value)
+    from.value = page.value * itemPage
+    to.value = from.value + itemPage
+
+    console.log(from.value +' | ' + to.value)
+
+    
+    // const { data: data_anggota } = await useAsyncData('search_anggota', async () => client
+    //     .from('hpoi_detail_anggota')
+    //     .select(`
+    //         featured, activated,
+    //         hpoi_anggota!inner(nama_provider, telepon, no_anggota, logo_img, hero_img),
+    //         hpoi_dpc( nama_dpc )
+    //     `)
+    //     .eq('activated', true)
+    //     .range(from.value, to.value)
+    //     , { transform: (result : any) => result.data }
+    // )
+    // console.log(anggotaAll.value)
+    anggotaPaginated.value = anggotaAll.value.slice(from.value, to.value)
+
+    console.log(anggotaPaginated.value)
+    setTimeout(async () => {
+        anggotaActive.value = [...anggotaActive.value, ...anggotaPaginated.value]
+        loadingPaginate.value = false
+    }, 1000);
+}
+
 // shuffle all data
 const shuffleAnggota = computed(() => 
-    anggotaAll.value.sort(() => Math.random() - 0.5)
+    anggotaActive.value.sort(() => Math.random() - 0.5) || []
 )
 
 // all process fetching final data
 const fetchShuffle = async () => {
     loading.value = true
+    console.log(shuffleAnggota.value)
+    anggotaAll.value = shuffleAnggota.value
     setTimeout(async () => {
         loading.value = false
-        anggotaAll.value = await shuffleAnggota.value
+        anggotaActive.value = await shuffleAnggota.value.slice(from.value, itemPage)
     }, 1000);
 }
 
@@ -311,17 +393,25 @@ const fetchFeatured = async () => {
     anggotaFeat.value = await featuredMembers.value
 }
 
+// const fetchActived = async () => {
+//     anggotaActive.value = await activeMembers.value
+// }
+
 const reloadData = async () => {
     loading.value = true
-    anggotaAll.value = await anggota.value
+    anggotaActive.value = await anggota.value
     const reshuffleAnggota = computed(() => 
-        anggotaAll.value.sort(() => Math.random() - 0.5)
+        anggotaActive.value.sort(() => Math.random() - 0.5).slice(0,6)
     )
     search.value = ''
+    from.value = 0
+    to.value = 5
+    page.value = 0
 
     setTimeout(async () => {
         loading.value = false
-        anggotaAll.value = await reshuffleAnggota.value
+        anggotaActive.value = await reshuffleAnggota.value
+        // anggotaActive.value = await activeMembers.value
     }, 1000);
 }
 
@@ -330,21 +420,24 @@ const searchData = async () => {
     const { data: search_anggota } = await useAsyncData('search_anggota', async () => client
         .from('hpoi_detail_anggota')
         .select(`
-            featured,
+            featured, activated,
             hpoi_anggota!inner(nama_provider, telepon, no_anggota, logo_img, hero_img),
             hpoi_dpc( nama_dpc )
         `)
         .ilike('hpoi_anggota.nama_provider', `%${search.value}%`)
+        .eq('activated', true)
         , { transform: (result : any) => result.data }
     )
     setTimeout(async () => {
-        anggotaAll.value = await search_anggota.value
+        anggotaActive.value = await search_anggota.value
         loading.value = false
     }, 1000);
+    
 }
 
 onMounted(async () => {
     await fetchFeatured()
+    // await fetchActived()
     await fetchShuffle()
 })
 

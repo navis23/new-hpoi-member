@@ -8,7 +8,11 @@
                     <nuxt-img src="/img/hpoi.png" format="webp" loading="lazy" sizes="sm:25vw" class="object-cover object-center h-10"/>
                 </nuxt-link>
             </div>
-            <div class="flex items-center justify-end w-44">
+            <div class="flex gap-x-2 items-center justify-end" :class="detail_anggota != null && detail_anggota.role == true ? '' : 'w-44'">
+                    <ButtonBaseSmall v-if="detail_anggota != null && detail_anggota.role == true" @click="toAdminHpoi()" class="hpoi">
+                        <Icon name="lucide:pie-chart" class="text-xl" />
+                        <span>To Admin HPOI</span>
+                    </ButtonBaseSmall>
                     <ButtonBaseSmall @click="logout()" class="dark">
                         <Icon name="lucide:log-out" class="text-xl" />
                         <span>Logout</span>
@@ -37,6 +41,10 @@
                     <ButtonBaseSmall @click="goEditGambar()" class="mono shadow flex justify-center items-center gap-x-1">
                         <Icon name="lucide:image-down" class="text-xl" />
                         <span>Edit Logo & Gambar</span>
+                    </ButtonBaseSmall>
+                    <ButtonBaseSmall @click="goUnduhCard()" class="shadow flex justify-center items-center gap-x-1">
+                        <Icon name="lucide:credit-card" class="text-xl" />
+                        <span>Unduh Membercard</span>
                     </ButtonBaseSmall>
                 </div>
             </div>
@@ -73,8 +81,23 @@
                 <h3 class="text-lg lg:text-xl">
                     Selamat Datang di Dashboard Member Area
                 </h3>
+                <p v-if="detail_anggota.role == true">
+                    
+                    Anda berstatus <span class="text-hpoi-main uppercase"> Admin Humas</span>, akses halaman Admin HPOI lewat tombol diatas
+                </p>
             </div>
             <div class="relative z-40 grid grid-cols-12 pb-10 gap-6">
+                <div class="lg:hidden col-span-12 bg-gray-50 rounded-xl shadow p-6 overflow-hidden">
+                    <div class="flex items-center justify-between">
+                        <p class="font-oswald text-xl font-bold text-hpoi-main">
+                            Unduh Kartu Anggota
+                        </p>
+                        <ButtonBaseSmall @click="goUnduhCard()" class="hpoi">
+                            <Icon name="lucide:download" class="text-lg" />
+                            <span>Unduh Kartu</span>
+                        </ButtonBaseSmall>
+                    </div>
+                </div>
                 <!-- profil view -->
                 <div class="col-span-12 lg:col-span-4 bg-gray-50 rounded-xl shadow p-6 overflow-hidden">
                     <div class="flex items-center justify-between border-b-2 pb-2 mb-2">
@@ -423,6 +446,9 @@ const { data: detail_anggota } = await useAsyncData('detail_anggota', async () =
 // anggotaAll.value = await anggota.value
 
 // logout 
+const toAdminHpoi = () => {
+    navigateTo("/admin-hpoi")
+}
 const logout = async () => {
     loading.value = true
     try {
@@ -459,6 +485,9 @@ const goEditLayanan = async () => {
 }
 const goEditGambar = async () => {
     navigateTo("/admin/data-anggota/edit-wizard/edit-five")
+}
+const goUnduhCard = async () => {
+    navigateTo("/admin/data-anggota/edit-wizard/get-card")
 }
 </script>
 

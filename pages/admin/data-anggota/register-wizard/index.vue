@@ -15,14 +15,19 @@
                 </div>
                 <div class="relative overflow-hidden z-40 bg-gray-50 w-96 shadow rounded-xl px-4 lg:px-8 py-6">
                     <div class="mt-4 mb-5">
-                        <FormKit
+                        <div>
+                            <FormKit
                             type="text"
+                            @keydown.enter="checkNomor"
+                            @keydown.tab="checkNomor"
                             v-model="no_anggota"
                             prefix-icon="solana"
                             label="Nomor Anggota"
                             placeholder="Ketikkan No Anggota Anda"
-                            help="Masukkan No Anggota yang terdaftar"
-                        />
+                            :help="check_id ? '' : 'Masukkan No Anggota yang terdaftar'"
+                            />
+                            <p v-if="check_id" class="text-xs font-oswald text-hpoi-red -mt-3 mb-3">Nomor anggota sudah terdaftar, silahkan masukkan yang lain</p>
+                        </div>
                         <FormKit
                             type="text"
                             v-model="nama_provider"
@@ -169,7 +174,7 @@ const storeGlobalData = useGlobalDataStore()
 const storeAnggota = useAnggotaStore()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
-
+const check_id = ref(false)
 const {
     dpcAll,
     no_anggota,
@@ -233,6 +238,25 @@ const fetchDataDpc = async () => {
         }, 1000);
     }
 
+}
+
+const checkNomor = async () => {
+    const { data: anggota , error: err } = await client
+        .from('hpoi_anggota')
+        .select(`
+            no_anggota
+        `)
+        .eq('no_anggota',`${no_anggota.value}`)
+        .single()
+    
+    if(anggota == null){
+        check_id.value = true
+        no_anggota.value = ''
+        console.log(err)
+    } else{
+        console.log(anggota)
+        check_id.value = false
+    }
 }
 
 

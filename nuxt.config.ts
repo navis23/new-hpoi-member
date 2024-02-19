@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     '@vueuse/motion/nuxt',
     '@nuxtjs/supabase',
     '@pinia-plugin-persistedstate/nuxt',
+
   ],
   css: ['~/assets/css/main.css'],
   postcss: {
@@ -46,7 +47,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/secret/login',
       callback: '/confirm',
-      exclude: ['/', '/anggota/*', '/secret/daftar'],
+      exclude: ['/', '/anggota/*', '/secret/daftar', '/secret/login-admin', '/secret/confirm', '/to-login', '/get-card/*'],
     }
   },
   image: {

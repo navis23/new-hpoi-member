@@ -3,7 +3,7 @@
         <Navbar />
         <div class="relative min-h-screen bg-gray-800 px-4 lg:px-32 overflow-hidden">
             <div class="flex flex-col gap-6 w-full min-h-screen items-center justify-center">
-                <h3 class="font-oswald text-gsi-smokewhite text-4xl text-center mb-4"><span class="text-hpoi-main underline underline-offset-4">Login akun</span> Anggota anda</h3>
+                <h3 class="font-oswald text-gsi-smokewhite text-4xl text-center mb-4"><span class="text-hpoi-main underline underline-offset-4">Login akun</span> Admin HUMAS HPOI</h3>
                 <div class="relative overflow-hidden z-40 bg-gsi-smokewhite w-96  shadow-xl rounded-xl px-4 lg:px-8 py-6">
                     <div class="mt-4 mb-5">
                         <FormKit
@@ -26,12 +26,6 @@
                         />
                         
                     </div>
-                    <div v-if="errorMsg" class="flex w-full gap-x-1 items-center justify-start my-2">
-                        <Icon name="lucide:x-circle" class="text-hpoi-red text-xl" />
-                        <p class="text-hpoi-red text-sm">
-                            Email atau password anda salah.
-                        </p>
-                    </div>
                     <div class="border-t-2 pt-4">
                         <ButtonBase v-if="loading == false" class="hpoi flex items-center justify-center gap-x-1" @click="signIn()">
                             <Icon name="lucide:log-in" class="text-2xl" />
@@ -47,9 +41,6 @@
                         </ButtonBase>
                     </div>
                 </div>
-                <h3 class="font-oswald text-gsi-smokewhite">
-                    belum punya akun ? <nuxt-link to="/secret/daftar"><span class="text-hpoi-main underline underline-offset-4">Daftar Disini</span></nuxt-link> 
-                </h3>
             </div>
             <p class="absolute py-10 -right-56 opacity-20 md:opacity-50 top-20">
                 <Icon name="PatternThree" class="text-[28rem]"/>
@@ -63,7 +54,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["auth"]
+  middleware: ["auth-admin"]
   // or middleware: 'auth'
 })
 const storeGlobalData = useGlobalDataStore()
@@ -75,7 +66,6 @@ const {
 
 const email = ref('')
 const password = ref('')
-const errorMsg = ref(false)
 
 
 
@@ -89,18 +79,14 @@ const signIn = async () => {
     console.log(data)
 
     if(error){
-        errorMsg.value = true
         console.log(error.message)
         setTimeout(async () => {
             loading.value = false
         }, 1000);
-        setTimeout(async () => {
-            errorMsg.value = false
-        }, 3000);
     } else {
         setTimeout(async () => {
             loading.value = false
-            navigateTo('/admin/data-anggota')
+            navigateTo('/admin-hpoi')
         }, 1000);
     }
     
