@@ -36,5 +36,8 @@
     "pinia": "^2.1.7",
     "qrcode.vue": "^3.4.1",
     "resend": "^3.2.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.9.5"
   }
 }
