@@ -54,7 +54,7 @@
                                 </h3>
                             </div>
                             <div class="">
-                                <qrcode-vue :value="value" :level="level" :render-as="renderAs" :size="125" />
+                                <qrcode-vue :value="linkQr" :level="level" :render-as="renderAs" :size="125" />
                             </div>
                         </div>
                     </div>
@@ -138,7 +138,7 @@ onMounted(async () => {
 })
 
 const route = useRoute()
-const value = ref(`https://new-hpoi-member.vercel.app/anggota/${no_anggota.value}`)
+const linkQr = ref('')
 const level = ref<Level>('Q')
 const renderAs = ref<RenderAs>('svg')
 const nameProviderMargin = ref(false)
@@ -167,6 +167,7 @@ nama_dpc.value = await detail_anggota.value.hpoi_dpc.nama_dpc
 id_dpc.value = await detail_anggota.value.id_dpc
 
 const fetchSplitNameDpc = async () => {
+    linkQr.value = `https://anggota.hpoi.org/anggota/${no_anggota.value}`
     let result = nama_dpc.value.indexOf(",");
     splitNamaDpc.value = nama_dpc.value.slice(0, result);
     splitNamaDpd.value = nama_dpc.value.slice(result+2);

@@ -312,7 +312,7 @@
                                                     </h3>
                                                 </div>
                                                 <div class="">
-                                                    <qrcode-vue :value="value" :level="level" :render-as="renderAs" :size="125" />
+                                                    <qrcode-vue :value="linkQr" :level="level" :render-as="renderAs" :size="125" />
                                                 </div>
                                             </div>
                                         </div>
@@ -510,7 +510,7 @@ const nama_logo_temp = ref('')
 const activated_temp = ref(false)
 
 
-const value = ref(``)
+const linkQr = ref('')
 const level = ref<Level>('Q')
 const renderAs = ref<RenderAs>('svg')
 const nameProviderMargin = ref(false)
@@ -711,7 +711,7 @@ const openModalCard = async (item:any) => {
         let result = nama_dpc_temp.value.indexOf(",");
         splitNamaDpc.value = nama_dpc_temp.value.slice(0, result);
         splitNamaDpd.value = nama_dpc_temp.value.slice(result+2);
-        value.value = `https://new-hpoi-member.vercel.app/anggota/${no_anggota_temp.value}`
+        linkQr.value = `https://anggota.hpoi.org/anggota/${no_anggota_temp.value}`
         console.log( splitNamaDpc.value + ', ' + splitNamaDpd.value)
     })
 }
@@ -731,7 +731,7 @@ const openModalConfirm = async (item:any) => {
         let result = nama_dpc_temp.value.indexOf(",");
         splitNamaDpc.value = nama_dpc_temp.value.slice(0, result);
         splitNamaDpd.value = nama_dpc_temp.value.slice(result+2);
-        value.value = `https://new-hpoi-member.vercel.app/anggota/${no_anggota_temp.value}`
+        linkQr.value = `https://anggota.hpoi.org/anggota/${no_anggota_temp.value}`
         console.log( splitNamaDpc.value + ', ' + splitNamaDpd.value)
     })
 }
