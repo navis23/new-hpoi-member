@@ -8,7 +8,7 @@
                     <div>
                         <h1 class="font-oswald text-6xl lg:text-9xl text-hpoi-main tracking-tighter">HPOI Member Area</h1>
                     </div>
-                    <h3 class="font-oswald text-lg lg:text-3xl text-gsi-smokewhite">Dapatkan semua informasi terkait member dari HPOI</h3>
+                    <h2 class="font-oswald text-lg lg:text-3xl text-gsi-smokewhite">Dapatkan semua informasi terkait Anggota dari HPOI</h2>
                 </div>
                 <button v-motion-fade class="mt-3 p-2 rounded-full flex items-center border-2 border-hpoi-main text-hpoi-main w-12 h-12 justify-center hover:scale-105 transition-all duration-300 hover:bg-hpoi-main hover:text-gsi-smokewhite">
                     <Icon name="lucide:arrow-down" class="text-4xl " />
@@ -80,7 +80,7 @@
                     <div v-if="anggotaFeat.length == 0" class="grid grid-cols-12 gap-4">
                         <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
-                                <nuxt-img src="/img/zerofeature.png" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                                <nuxt-img src="https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/zerofeature.webp" alt="featured anggota kosong" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                                 <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                                     Uyesss
                                 </span> -->
@@ -98,7 +98,7 @@
                         </div>
                         <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
-                                <nuxt-img src="/img/zerofeature.png" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                                <nuxt-img src="https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/zerofeature.webp" alt="featured anggota kosong" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                                 <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                                     Uyesss
                                 </span> -->
@@ -116,7 +116,7 @@
                         </div>
                         <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
-                                <nuxt-img src="/img/zerofeature.png" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                                <nuxt-img src="https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/zerofeature.webp" alt="featured anggota kosong" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                                 <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                                     Uyesss
                                 </span> -->
@@ -194,7 +194,7 @@
             <div v-if="loading == false" class="grid grid-cols-12 gap-4">
                 <div v-for="(item, index) in anggotaActive" :key="index" class="relative col-span-12 lg:col-span-4 w-full bg-white shadow transition-all duration-300 rounded-xl group p-3">
                     <div class="relative">
-                        <nuxt-img v-if="item.hpoi_anggota.hero_img" :src="item.hpoi_anggota.hero_img" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                        <nuxt-img v-if="item.hpoi_anggota.hero_img" :src="item.hpoi_anggota.hero_img" alt="hero provider" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                         <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                             Uyesss
                         </span> -->
@@ -229,11 +229,11 @@
                                 <nuxt-img src="/img/ava01.png" format="webp" loading="lazy" sizes="sm:20vw" class="max-h-full max-w-full object-cover object-center shadow-sm h-8 w-8" />
                             </div> -->
                             <Avatar class="overflow-hidden bg-white">
-                                <nuxt-img v-if="item.hpoi_anggota.logo_img" :src="item.hpoi_anggota.logo_img" format="webp" loading="lazy" sizes="sm:20vw" class="object-cover object-center" />
+                                <nuxt-img v-if="item.hpoi_anggota.logo_img" :src="item.hpoi_anggota.logo_img" alt="logo provider" format="webp" loading="lazy" sizes="sm:20vw" class="object-cover object-center" />
                             </Avatar>
                         </div>
                         <div class="leading-none">
-                            <p class="text-xs text-gray-400">ID Member</p>
+                            <p class="text-xs text-gray-700">ID Member</p>
                             <h4 class="text-base font-oswald font-medium leading-tight text-hpoi-main">
                                 {{ item.hpoi_anggota.no_anggota }}
                             </h4>

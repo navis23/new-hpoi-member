@@ -5,6 +5,9 @@ export default defineNuxtConfig({
         charset: 'utf-16',
         viewport: 'width=device-width, initial-scale=1',
         title: 'HPOI Member Area',
+        htmlAttrs: {
+          lang: 'id',
+        },
         meta: [
         // <meta name="description" content="My amazing site">
             { name: 'description', content: 'Member area Himpunan Provider Outbound Indonesia' }

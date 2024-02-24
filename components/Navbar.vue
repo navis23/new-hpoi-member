@@ -3,7 +3,7 @@
     <nav class="absolute px-4 lg:px-32 w-full h-20 flex items-center justify-between z-[99]">
         <div class="flex items-center justify-start w-44">
             <nuxt-link to="/">
-                <nuxt-img :src="route.fullPath == '/' ? '/img/hpoi.png' : '/img/hpoi.png'" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-10"/>
+                <nuxt-img :src="route.fullPath == '/' ? '/img/hpoi.png' : '/img/hpoi.png'" alt="logo hpoi" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-10"/>
             </nuxt-link>
         </div>
         <!-- <div class="hidden lg:block">
@@ -15,12 +15,26 @@
                 </li>
             </ul>
         </div> -->
-        <div class="hidden lg:flex lg:items-center lg:justify-end w-44">
-            <nuxt-link :to="route.fullPath == '/' ? 'https://hpoi.org' : '/'">
-                <ButtonBaseSmall class="hpoi">
-                    <Icon :name="route.fullPath == '/' ? 'lucide:home' : 'lucide:users'" class="text-xl" />
-                    <span v-if="route.fullPath == '/'" >Halaman Utama HPOI</span>
-                    <span v-if="route.fullPath != '/'" >Halaman List Member</span>
+        <div class="hidden lg:flex lg:items-center lg:gap-3 lg:justify-end">
+            <div class="border-r-2 pr-3 border-gsi-gold ">
+                <nuxt-link :to="route.fullPath == '/' ? 'https://hpoi.org' : '/'">
+                    <ButtonBaseSmall class="hpoi">
+                        <Icon :name="route.fullPath == '/' ? 'lucide:home' : 'lucide:users'" class="text-xl" />
+                        <span v-if="route.fullPath == '/'" >Halaman Utama HPOI</span>
+                        <span v-if="route.fullPath != '/'" >Halaman List Anggota</span>
+                    </ButtonBaseSmall>
+                </nuxt-link>
+            </div>
+            <nuxt-link to="/secret/daftar">
+                <ButtonBaseSmall class="dark">
+                    <Icon name="lucide:user-plus" class="text-xl" />
+                    <span >Pendaftaran Anggota</span>
+                </ButtonBaseSmall>
+            </nuxt-link>
+            <nuxt-link to="/secret/login">
+                <ButtonBaseSmall class="dark">
+                    <Icon name="lucide:log-in" class="text-xl" />
+                    <span >Login Anggota</span>
                 </ButtonBaseSmall>
             </nuxt-link>
         </div>
@@ -43,21 +57,35 @@
                         <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                             <Icon :name="route.fullPath == '/' ? 'lucide:home' : 'lucide:users'" class="text-xl" />
                             <span v-if="route.fullPath == '/'" >Halaman Utama HPOI</span>
-                            <span v-if="route.fullPath != '/'" >Halaman List Member</span>
+                            <span v-if="route.fullPath != '/'" >Halaman List Anggota</span>
                         </ButtonBase>
                     </nuxt-link>
                 </div>
-                <!-- <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[4em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
-                    <nuxt-link to="/tentang-kami">
-                        <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
-                            <Icon name="lucide:network" class="text-xl lg:text-2xl" />
-                            <span>
-                                Tentang Kami
-                            </span>
-                        </ButtonBase>
-                    </nuxt-link>
-                </div>
-                <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[8em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
+                <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[5em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
+                <nuxt-link to="/secret/daftar">
+                    <ButtonBase class="dark w-40 flex items-start justify-center gap-x-2 text-left">
+                        <p>
+                            <Icon name="lucide:user-plus" class="text-2xl" />
+                        </p>
+                        <span>
+                            Pendaftaran Anggota
+                        </span>
+                    </ButtonBase>
+                </nuxt-link>
+            </div>
+            <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[10em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
+                <nuxt-link to="/secret/login">
+                    <ButtonBase class="dark w-40 flex items-start justify-center gap-x-2 text-left">
+                        <p>
+                            <Icon name="lucide:log-in" class="text-2xl" />
+                        </p>
+                        <span>
+                            Login Anggota
+                        </span>
+                    </ButtonBase>
+                </nuxt-link>
+            </div>
+                <!-- <div :class="smallTopMenuFixedExpanded ? 'translate-x-[-5em] translate-y-[8em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
                     <nuxt-link to="/hunian-kami">
                         <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                             <Icon name="lucide:home" class="text-xl lg:text-2xl" />
@@ -99,24 +127,40 @@
             
             <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[0em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
                 <nuxt-link :to="route.fullPath == '/' ? 'https://hpoi.org/' : '/'">
-                    <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
-                        <Icon :name="route.fullPath == '/' ? 'lucide:home' : 'lucide:users'" class="text-xl" />
+                    <ButtonBase class="darkblue w-40 flex items-start justify-center gap-x-2 text-left">
+                        <p>
+                            <Icon :name="route.fullPath == '/' ? 'lucide:home' : 'lucide:users'" class="text-2xl" />
+                        </p>
                         <span v-if="route.fullPath == '/'" >Halaman Utama HPOI</span>
-                        <span v-if="route.fullPath != '/'" >Halaman List Member</span>
+                        <span v-if="route.fullPath != '/'" >Halaman List Anggota</span>
                     </ButtonBase>
                 </nuxt-link>
             </div>
-            <!-- <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[4em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
-                <nuxt-link to="/tentang-kami">
-                    <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
-                        <Icon name="lucide:network" class="text-xl lg:text-2xl" />
+            <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[5em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
+                <nuxt-link to="/secret/daftar">
+                    <ButtonBase class="dark w-40 flex items-start justify-center gap-x-2 text-left">
+                        <p>
+                            <Icon name="lucide:user-plus" class="text-2xl" />
+                        </p>
                         <span>
-                            Tentang Kami
+                            Pendaftaran Anggota
                         </span>
                     </ButtonBase>
                 </nuxt-link>
             </div>
-            <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[8em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
+            <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[10em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
+                <nuxt-link to="/secret/login">
+                    <ButtonBase class="dark w-40 flex items-start justify-center gap-x-2 text-left">
+                        <p>
+                            <Icon name="lucide:log-in" class="text-2xl" />
+                        </p>
+                        <span>
+                            Login Anggota
+                        </span>
+                    </ButtonBase>
+                </nuxt-link>
+            </div>
+            <!-- <div :class="smallTopMenuExpanded ? 'translate-x-[-5em] translate-y-[8em] scale-1' : 'scale-0'" class="absolute transform z-20 transition-all duration-200 right-[0em] top-[0.25em] ">
                 <nuxt-link to="/hunian-kami">
                     <ButtonBase class="darkblue w-40 flex items-center justify-center gap-x-2">
                         <Icon name="lucide:home" class="text-xl lg:text-2xl" />

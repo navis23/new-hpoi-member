@@ -151,7 +151,7 @@
                 <!-- decoration image -->
                 <div class="hidden lg:block lg:col-span-4 overflow-hidden ">
                     <div class="w-full flex justify-center h-80">
-                        <nuxt-img src="/img/outhpoi.png" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-[20.75rem]"/>
+                        <nuxt-img src="https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/outhpoi.webp" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-[20.75rem]"/>
                     </div>
                 </div>
                 <!-- contact view -->
