@@ -279,13 +279,14 @@ const storeGlobalData = useGlobalDataStore()
 const client = useSupabaseClient()
 
 const {
+    anggotaFeat,
+    anggotaActive,
+    anggotaPaginated,
     loading
 } = storeToRefs(storeGlobalData)
 
 const anggotaAll = ref()
-const anggotaFeat = ref()
-const anggotaActive = ref()
-const anggotaPaginated = ref()
+
 const search = ref('')
 const loadingPaginate = ref(false)
 
@@ -295,7 +296,7 @@ const to = ref(5)
 const itemPage = 6
 
 // feth data from api
-const { data: count_anggota } = await useAsyncData('count_anggota', async () => client
+const { data: count_anggota } = await useLazyAsyncData('count_anggota', async () => client
     .from('hpoi_detail_anggota')
     .select(`
         id_anggota
@@ -304,7 +305,7 @@ const { data: count_anggota } = await useAsyncData('count_anggota', async () => 
     , { transform: (res : any) => res.data }
 ) || []
 
-const { data: anggota } = await useAsyncData('anggota', async () => client
+const { data: anggota } = await useLazyAsyncData('anggota', async () => client
     .from('hpoi_detail_anggota')
     .select(`
         featured, activated,
@@ -318,21 +319,16 @@ const { data: anggota } = await useAsyncData('anggota', async () => client
 console.log(count_anggota.value.length)
 
 // anggotaAll.value = await anggota.value
-anggotaFeat.value = await anggota.value
-anggotaActive.value = await anggota.value
+// anggotaFeat.value = await anggota.value
+// anggotaActive.value = await anggota.value
 
 // filtered featured member
 const featuredMembers = computed(() =>
-anggotaFeat.value.filter(
+anggota.value.filter(
         (p : any) => p.featured == true
     ) || []
 )
 
-const activeMembers = computed(() =>
-anggota.value.filter(
-        (p : any) => p.activated == true
-    ) || []
-)
 
 //  paginate fetch
 const paginateFetch = async () => {
@@ -351,19 +347,6 @@ const paginateFetch = async () => {
 
     console.log(from.value +' | ' + to.value)
 
-    
-    // const { data: data_anggota } = await useAsyncData('search_anggota', async () => client
-    //     .from('hpoi_detail_anggota')
-    //     .select(`
-    //         featured, activated,
-    //         hpoi_anggota!inner(nama_provider, telepon, no_anggota, logo_img, hero_img),
-    //         hpoi_dpc( nama_dpc )
-    //     `)
-    //     .eq('activated', true)
-    //     .range(from.value, to.value)
-    //     , { transform: (result : any) => result.data }
-    // )
-    // console.log(anggotaAll.value)
     anggotaPaginated.value = anggotaAll.value.slice(from.value, to.value)
 
     console.log(anggotaPaginated.value)
@@ -375,13 +358,13 @@ const paginateFetch = async () => {
 
 // shuffle all data
 const shuffleAnggota = computed(() => 
-    anggotaActive.value.sort(() => Math.random() - 0.5) || []
+    anggota.value.sort(() => Math.random() - 0.5) || []
 )
 
 // all process fetching final data
 const fetchShuffle = async () => {
     loading.value = true
-    console.log(shuffleAnggota.value)
+    // console.log(shuffleAnggota.value)
     anggotaAll.value = shuffleAnggota.value
     setTimeout(async () => {
         loading.value = false
@@ -390,7 +373,12 @@ const fetchShuffle = async () => {
 }
 
 const fetchFeatured = async () => {
-    anggotaFeat.value = await featuredMembers.value
+    if(featuredMembers.value.length != 0){
+        console.log('featured member exist')
+        anggotaFeat.value = await featuredMembers.value
+    } else {
+        console.log('featured member not exist / 0')
+    }
 }
 
 // const fetchActived = async () => {
@@ -435,10 +423,15 @@ const searchData = async () => {
     
 }
 
+const readyFetch = async () => {
+    if(anggotaActive.value.length != 0) return
+    await fetchShuffle()
+}
+
 onMounted(async () => {
     await fetchFeatured()
-    // await fetchActived()
-    await fetchShuffle()
+    await readyFetch()
+    
 })
 
 

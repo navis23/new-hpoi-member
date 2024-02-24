@@ -19,6 +19,9 @@ export const useGlobalDataStore = defineStore('globalDataStore', {
         pass_step_five : false,
         pass_step_final : false,
         url_bucket_img : 'https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/',
+        anggotaFeat: [] as any,
+        anggotaActive: [] as any,
+        anggotaPaginated: [] as any,
 
     }),
 })
