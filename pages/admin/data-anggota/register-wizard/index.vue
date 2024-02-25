@@ -249,7 +249,7 @@ const checkNomor = async () => {
         .eq('no_anggota',`${no_anggota.value}`)
         .single()
     
-    if(anggota == null){
+    if(err){
         check_id.value = true
         no_anggota.value = ''
         console.log(err)
