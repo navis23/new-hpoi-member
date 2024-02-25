@@ -414,6 +414,7 @@
 
 <script setup lang="ts">
 const storeGlobalData = useGlobalDataStore()
+const storeAnggota = useAnggotaStore()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 
@@ -451,6 +452,7 @@ const toAdminHpoi = () => {
 }
 const logout = async () => {
     loading.value = true
+    storeAnggota.$reset()
     try {
         let { error } = await client.auth.signOut()
         if(error) throw error;

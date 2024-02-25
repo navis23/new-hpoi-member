@@ -20,6 +20,7 @@
                             type="text"
                             @keydown.enter="checkNomor"
                             @keydown.tab="checkNomor"
+                            @focusout="checkNomor"
                             v-model="no_anggota"
                             prefix-icon="solana"
                             label="Nomor Anggota"
