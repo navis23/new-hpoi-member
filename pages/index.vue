@@ -4,23 +4,25 @@
         <!-- hero section -->
         <div class="relative min-h-screen bg-gray-800 px-4 lg:px-32 pt-32 overflow-hidden">
             <div class="flex flex-col items-center gap-4 justify-center h-full">
-                <div v-motion-fade class="text-center space-y-3 z-10">
+                <div :class="!fadingTextHero ? 'scale-0' : 'scale-100'" class="text-center transition-all duration-300 space-y-3 z-10">
                     <div>
                         <h1 class="font-oswald text-6xl lg:text-9xl text-hpoi-main tracking-tighter">HPOI Member Area</h1>
                     </div>
                     <h2 class="font-oswald text-lg lg:text-3xl text-gsi-smokewhite">Dapatkan semua informasi terkait Anggota dari HPOI</h2>
                 </div>
-                <button v-motion-fade class="mt-3 p-2 rounded-full flex items-center border-2 border-hpoi-main text-hpoi-main w-12 h-12 justify-center hover:scale-105 transition-all duration-300 hover:bg-hpoi-main hover:text-gsi-smokewhite">
+                <button id="arrowdown" aria-label="Arrow Down" :class="!fadingArrowHero ? 'opacity-0' : 'opacity-100'" class="mt-3 p-2 rounded-full flex items-center border-2 border-hpoi-main text-hpoi-main w-12 h-12 justify-center hover:scale-105 transition-all duration-300 hover:bg-hpoi-main hover:text-gsi-smokewhite">
                     <Icon name="lucide:arrow-down" class="text-4xl " />
                 </button>
-                <div v-motion-fade class="w-full mt-8">
-                    <h3 class="font-oswald text-gsi-smokewhite text-xl lg:text-3xl"><span class="text-hpoi-main font-semibold underline underline-offset-8">Featured Member</span> of the Week</h3>
+                <div :class="!fadingTextHero ? 'opacity-0' : 'opacity-100'" class="w-full mt-8 transition-all duration-300">
+                    <p class="font-oswald text-gsi-smokewhite text-xl lg:text-3xl">
+                        <span class="text-hpoi-main font-semibold underline underline-offset-8">Featured Member</span> of the Week
+                    </p>
                 </div>
-                <div v-motion-slide-bottom :delay="500" class="relative w-full rounded-t-lg z-20 px-4 pt-4 bg-gsi-smokewhite">
+                <div class="relative w-full rounded-t-lg z-20 px-4 pt-4 bg-gsi-smokewhite">
                     <!-- <h3 class="font-oswald text-xl lg:text-3xl pb-4"><span class="text-hpoi-main font-semibold underline underline-offset-8 ">Featured Member</span> of the Week</h3> -->
                     
                     <!-- member featured cards -->
-                    <div v-if="anggotaFeat.length != 0" class="grid grid-cols-12 gap-4">
+                    <div v-if="anggotaFeat.length != 0" :class="!fadingArrowHero ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'" class="grid grid-cols-12 gap-4 transition-all duration-300">
                         <div v-for="(item, index) in anggotaFeat" :key="index" class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
                                 <nuxt-img v-if="item.hpoi_anggota.hero_img" :src="item.hpoi_anggota.hero_img" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
@@ -77,10 +79,10 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="anggotaFeat.length == 0" class="grid grid-cols-12 gap-4">
+                    <div v-if="anggotaFeat.length == 0" :class="!fadingArrowHero ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'" class="grid grid-cols-12 gap-4 transition-all duration-300">
                         <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
-                                <nuxt-img src="https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/zerofeature.webp" alt="featured anggota kosong" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                                <nuxt-img preload fetchpriority="high" src="https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/zerofeature.webp" alt="featured anggota kosong" format="webp" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                                 <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                                     Uyesss
                                 </span> -->
@@ -98,7 +100,7 @@
                         </div>
                         <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
-                                <nuxt-img src="https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/zerofeature.webp" alt="featured anggota kosong" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                                <nuxt-img preload fetchpriority="high" src="https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/zerofeature.webp" alt="featured anggota kosong" format="webp" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                                 <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                                     Uyesss
                                 </span> -->
@@ -116,7 +118,7 @@
                         </div>
                         <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
-                                <nuxt-img src="https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/zerofeature.webp" alt="featured anggota kosong" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                                <nuxt-img preload fetchpriority="high" src="https://rxabauhlxtkghurnabvr.supabase.co/storage/v1/object/public/hpoi_images/zerofeature.webp" alt="featured anggota kosong" format="webp" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                                 <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                                     Uyesss
                                 </span> -->
@@ -143,15 +145,15 @@
                     </div>
                 </div>
             </div>
-            <p class="absolute py-10 -right-56 opacity-20 md:opacity-50 top-20">
+            <p class="absolute py-10 -right-56 opacity-20 md:opacity-40 top-20">
                 <Icon name="PatternThree" class="text-[28rem]"/>
             </p>
-            <p class="absolute py-10 -left-56 opacity-20 md:opacity-50 bottom-10">
+            <p class="absolute py-10 -left-56 opacity-20 md:opacity-40 bottom-10">
                 <Icon name="PatternThree" class="text-[28rem]"/>
             </p>
         </div>
         
-        <div v-motion-slide-visible-once-top :delay="500" class="relative w-full flex items-center justify-center px-4 lg:px-32 mt-20">
+        <div class="relative w-full flex items-center justify-center px-4 lg:px-32 mt-20">
             <div class="relative bg-gray-800 w-full py-4 rounded-xl overflow-hidden">
                 <h3 class="font-oswald text-xl lg:text-5xl text-center text-gsi-smokewhite">
                     <span class="text-hpoi-main font-bold">All Member</span> of HPOI
@@ -194,7 +196,7 @@
             <div v-if="loading == false" class="grid grid-cols-12 gap-4">
                 <div v-for="(item, index) in anggotaActive" :key="index" class="relative col-span-12 lg:col-span-4 w-full bg-white shadow transition-all duration-300 rounded-xl group p-3">
                     <div class="relative">
-                        <nuxt-img v-if="item.hpoi_anggota.hero_img" :src="item.hpoi_anggota.hero_img" alt="hero provider" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-40 w-full rounded-lg"/>
+                        <nuxt-img v-if="item.hpoi_anggota.hero_img" :src="item.hpoi_anggota.hero_img" alt="hero provider" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
                         <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                             Uyesss
                         </span> -->
@@ -204,7 +206,7 @@
                     </div>
                     <div class="mb-6 mt-3">
                         <div class="flex gap-2 leading-snug line-clamp-2 text-sm pb-2">
-                            <p class="font-oswald text-xl md:text-2xl text-hpoi-main ">
+                            <p class="font-oswald text-xl md:text-2xl text-orange-600 ">
                                 {{ item.hpoi_anggota.nama_provider }}
                             </p>
                         </div>
@@ -234,7 +236,7 @@
                         </div>
                         <div class="leading-none">
                             <p class="text-xs text-gray-700">ID Member</p>
-                            <h4 class="text-base font-oswald font-medium leading-tight text-hpoi-main">
+                            <h4 class="text-base font-oswald leading-tight text-orange-700">
                                 {{ item.hpoi_anggota.no_anggota }}
                             </h4>
                         </div>
@@ -295,8 +297,11 @@ const from = ref(0)
 const to = ref(5)
 const itemPage = 6
 
+const fadingTextHero = ref(false)
+const fadingArrowHero = ref(false)
+
 // feth data from api
-const { data: count_anggota } = await useLazyAsyncData('count_anggota', async () => client
+const { data: count_anggota } = await useAsyncData('count_anggota', async () => client
     .from('hpoi_detail_anggota')
     .select(`
         id_anggota
@@ -305,7 +310,7 @@ const { data: count_anggota } = await useLazyAsyncData('count_anggota', async ()
     , { transform: (res : any) => res.data }
 ) || []
 
-const { data: anggota } = await useLazyAsyncData('anggota', async () => client
+const { data: anggota } = await useAsyncData('anggota', async () => client
     .from('hpoi_detail_anggota')
     .select(`
         featured, activated,
@@ -423,15 +428,19 @@ const searchData = async () => {
     
 }
 
-const readyFetch = async () => {
-    if(anggotaActive.value.length != 0) return
+const fetchActivated = async () => {
+    fadingTextHero.value = true
     await fetchShuffle()
+    setTimeout(async () => {
+        fadingArrowHero.value = true
+    }, 250)
 }
 
 onMounted(async () => {
     await fetchFeatured()
-    await readyFetch()
-    
+    // await fetchActived()
+    // await fetchShuffle()
+    await fetchActivated()
 })
 
 

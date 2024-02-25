@@ -3,7 +3,7 @@
     <nav class="absolute px-4 lg:px-32 w-full h-20 flex items-center justify-between z-[99]">
         <div class="flex items-center justify-start w-44">
             <nuxt-link to="/">
-                <nuxt-img :src="route.fullPath == '/' ? '/img/hpoi.png' : '/img/hpoi.png'" alt="logo hpoi" format="webp" loading="lazy" sizes="sm:100vw" class="object-cover object-center h-10"/>
+                <nuxt-img preload :src="route.fullPath == '/' ? '/img/hpoi.png' : '/img/hpoi.png'" alt="logo hpoi" format="webp" sizes="sm:25vw" class="object-cover object-center h-10"/>
             </nuxt-link>
         </div>
         <!-- <div class="hidden lg:block">
@@ -40,7 +40,7 @@
         </div>
         <div class="absolute lg:hidden lg:scale-0 right-0 md:right-[1em] z-[99] transition-all duration-300 transform h-12 w-12 rounded-full">
             <div class="after:bg-hpoi-main fixed right-[1em] top-[0em] z-[90] transition-transform duration-300 after:absolute after:right-0 after:-top-0 after:block after:h-12 after:w-12 after:shadow-lg after:transition-all after:duration-300 after:content-[''] after:ease-[cubic-bezier(0.68, 1.55, 0.265, 1)]" :class="smallTopMenuFixedExpanded ? 'after:scale-[10] after:rounded-sm' : 'after:rounded-md hover:after:scale-0'">
-                <ButtonIconSolid @click="toogleSmallTopFixed()" class="relative block z-40" :class="smallTopMenuFixedExpanded ? 'dark' : ''">
+                <ButtonIconSolid id="menudown" aria-label="Menu Down" @click="toogleSmallTopFixed()" class="relative block z-40" :class="smallTopMenuFixedExpanded ? 'dark' : ''">
                     <Icon :name="smallTopMenuFixedExpanded ? 'lucide:x' : 'lucide:gantt-chart'" />
                 </ButtonIconSolid>
                 
@@ -121,7 +121,7 @@
     <!-- float top menu button -->
     <div :class="smallTopMenu ? 'translate-y-0 top-[0.6em]' : '-translate-y-full -top-5'" class="fixed right-0 md:right-[1em] z-[99] transition-all duration-300 transform h-12 w-12 rounded-full">
         <div class="after:bg-hpoi-main fixed right-[1em] top-[0.6em] z-[90] transition-transform duration-300 after:absolute after:right-0 after:-top-0 after:block after:h-12 after:w-12 after:shadow-lg after:transition-all after:duration-300 after:content-[''] after:ease-[cubic-bezier(0.68, 1.55, 0.265, 1)]" :class="smallTopMenuExpanded ? 'after:scale-[10] after:rounded-sm' : 'after:rounded-md hover:after:scale-0'">
-            <ButtonIconSolid @click="toogleSmallTop()" class="relative block z-40" :class="smallTopMenuExpanded ? 'dark' : ''">
+            <ButtonIconSolid id="arrowdownsticky" aria-label="Sticky Down" @click="toogleSmallTop()" class="relative block z-40" :class="smallTopMenuExpanded ? 'dark' : ''">
                 <Icon :name="smallTopMenuExpanded ? 'lucide:x' : 'lucide:gantt-chart'" />
             </ButtonIconSolid>
             

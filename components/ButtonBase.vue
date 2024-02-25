@@ -1,5 +1,5 @@
 <template>
-    <button class="bg-sky-600 text-white py-3 pl-2 pr-4 text-sm lg:text-base w-40 rounded-md hover:bg-sky-500 hover:text-gray-100 transition ease-in-out duration-300 font-oswald tracking-wide">
+    <button class="py-3 pl-2 pr-4 text-sm lg:text-base w-40 rounded-md hover:text-gray-100 transition ease-in-out duration-300 font-oswald tracking-wide">
         <slot />
     </button>
 </template>
@@ -9,14 +9,17 @@
 </script>
 
 <style lang="postcss" scoped>
+.main {
+    @apply bg-sky-600 text-gsi-smokewhite hover:bg-sky-500
+}
 .danger {
-    @apply bg-red-600 hover:bg-red-500
+    @apply bg-red-600 text-gsi-smokewhite hover:bg-red-500
 }
 .warning {
-    @apply bg-yellow-600 hover:bg-yellow-500
+    @apply bg-yellow-600 text-gsi-smokewhite hover:bg-yellow-500
 }
 .muted {
-    @apply bg-gray-500 hover:bg-gray-400
+    @apply bg-slate-500 text-gsi-smokewhite hover:bg-slate-400
 }
 .gold {
     @apply bg-gsi-gold text-slate-800 hover:bg-gsi-gold hover:text-gsi-darkblue
