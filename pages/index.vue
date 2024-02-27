@@ -79,6 +79,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div v-if="anggotaFeat.length == 0" :class="!fadingArrowHero ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'" class="grid grid-cols-12 gap-4 transition-all duration-300">
                         <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
@@ -166,6 +167,7 @@
                 </p>
             </div>
         </div>
+
         <!-- about section -->
         <div class="relative w-full px-4 lg:px-32 py-10">
             <!-- search & action -->
@@ -256,7 +258,7 @@
             <div v-if="loadingPaginate == true" class="w-full  py-6 flex justify-center items-center">
                 <LoadingMini />
             </div>
-            <div v-if="anggotaActive.length >= 1 && to < count_anggota.length && !loadingPaginate " class="w-full py-6">
+            <div v-if="anggotaActive.length >= 1 && to < anggotaStoredCache.length && !loadingPaginate " class="w-full py-6">
                 <button class="w-full bg-hpoi-main py-4 px-2 font-semibold rounded-lg flex items-center justify-center gap-x-2" @click="paginateFetch()">
                     <p>
                         <Icon name="lucide:eye" class="text-2xl"/>
@@ -284,6 +286,7 @@ const {
     anggotaFeat,
     anggotaActive,
     anggotaPaginated,
+    anggotaStoredCache,
     loading
 } = storeToRefs(storeGlobalData)
 
@@ -300,40 +303,42 @@ const itemPage = 6
 const fadingTextHero = ref(false)
 const fadingArrowHero = ref(false)
 
-// feth data from api
-const { data: count_anggota } = await useAsyncData('count_anggota', async () => client
-    .from('hpoi_detail_anggota')
-    .select(`
-        id_anggota
-    `)
-    .eq('activated', true)
-    , { transform: (res : any) => res.data }
-) || []
+const { data: cachedData } = useNuxtData('anggota_key');
+console.log('cache data first iteration')
+console.log(cachedData.value)
+console.log('check first data cache is stored or not, 0 mean not stored')
+console.log('the number of cache data is : ' + anggotaStoredCache.value.length)
 
-const { data: anggota } = await useAsyncData('anggota', async () => client
-    .from('hpoi_detail_anggota')
-    .select(`
-        featured, activated,
-        hpoi_anggota(nama_provider, telepon, no_anggota, logo_img, hero_img),
-        hpoi_dpc( nama_dpc )
-    `)
-    .eq('activated', true)
-    , { transform: (result : any) => result.data }
-)
+if(cachedData.value){
+    anggotaStoredCache.value = cachedData.value
+    console.log('cache data is found & not null, get data from cache')
 
-console.log(count_anggota.value.length)
+} else {
+    console.log('cache data is not found & null, fetch data from API')
 
-// anggotaAll.value = await anggota.value
-// anggotaFeat.value = await anggota.value
-// anggotaActive.value = await anggota.value
+    const { data: anggota } = await useAsyncData('anggota_key', async () => client
+        .from('hpoi_detail_anggota')
+        .select(`
+            featured, activated,
+            hpoi_anggota(nama_provider, telepon, no_anggota, logo_img, hero_img),
+            hpoi_dpc( nama_dpc )
+        `)
+        .eq('activated', true)
+        , { transform: (result : any) => result.data }
+    ) || []
+    
+    anggotaStoredCache.value = anggota.value
+
+    console.log('get data from fetching API, the number is : ' + anggotaStoredCache.value.length)
+}
+
 
 // filtered featured member
 const featuredMembers = computed(() =>
-anggota.value.filter(
+anggotaStoredCache.value.filter(
         (p : any) => p.featured == true
     ) || []
 )
-
 
 //  paginate fetch
 const paginateFetch = async () => {
@@ -363,7 +368,7 @@ const paginateFetch = async () => {
 
 // shuffle all data
 const shuffleAnggota = computed(() => 
-    anggota.value.sort(() => Math.random() - 0.5) || []
+    anggotaStoredCache.value.sort(() => Math.random() - 0.5) || []
 )
 
 // all process fetching final data
@@ -392,7 +397,7 @@ const fetchFeatured = async () => {
 
 const reloadData = async () => {
     loading.value = true
-    anggotaActive.value = await anggota.value
+    anggotaActive.value = await anggotaStoredCache.value
     const reshuffleAnggota = computed(() => 
         anggotaActive.value.sort(() => Math.random() - 0.5).slice(0,6)
     )
@@ -410,21 +415,27 @@ const reloadData = async () => {
 
 const searchData = async () => {
     loading.value = true
-    const { data: search_anggota } = await useAsyncData('search_anggota', async () => client
-        .from('hpoi_detail_anggota')
-        .select(`
-            featured, activated,
-            hpoi_anggota!inner(nama_provider, telepon, no_anggota, logo_img, hero_img),
-            hpoi_dpc( nama_dpc )
-        `)
-        .ilike('hpoi_anggota.nama_provider', `%${search.value}%`)
-        .eq('activated', true)
-        , { transform: (result : any) => result.data }
-    )
-    setTimeout(async () => {
-        anggotaActive.value = await search_anggota.value
-        loading.value = false
-    }, 1000);
+    if(search.value == '') {
+        setTimeout(async () => {
+            await reloadData()
+            console.log('search is empty & get cache data back')
+        }, 1000);
+    } else {
+        const { data: search_anggota } = await client
+            .from('hpoi_detail_anggota')
+            .select(`
+                featured, activated,
+                hpoi_anggota!inner(nama_provider, telepon, no_anggota, logo_img, hero_img),
+                hpoi_dpc( nama_dpc )
+            `)
+            .ilike('hpoi_anggota.nama_provider', `%${search.value}%`)
+            .eq('activated', true)
+        console.log(search_anggota)
+        setTimeout(async () => {
+            anggotaActive.value = search_anggota
+            loading.value = false
+        }, 1000);
+    }
     
 }
 

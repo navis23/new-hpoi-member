@@ -17,13 +17,19 @@
                     <div class="relative overflow-hidden z-40 bg-gray-50 w-96 shadow rounded-xl px-4 lg:px-8 py-6">
                         <div class="mt-4 mb-5 divide-y-2">
                             <div>
+                                <!-- alert file size too big -->
+                                <div v-if="tooBigSize" class="w-full text-center mb-2 bg-red-500 bg-opacity-10 p-2 rounded-lg">
+                                    <p class="font-oswald text-hpoi-red text-sm">
+                                        Gagal Upload, Ukuran File terlalu besar
+                                    </p>
+                                </div>
                                 <!-- logo -->
                                 <FormKit
                                     v-if="logo_img_temp == '' && logoIndicator == ''"
                                     type="file"
                                     label="Gambar Logo"
                                     accept=".png, .jpg, .jpeg, .svg"
-                                    help="Masukkan gambar logo anda yang sesuai."
+                                    help="Masukkan gambar logo anda, max. 512 Kb."
                                     multiple="false"
                                     @change="uploadLogo"
                                     :disabled="logo_img_temp != ''  || uploading == true"
@@ -50,7 +56,7 @@
                                     type="file"
                                     label="Gambar Hero Utama"
                                     accept=".png, .jpg, .jpeg, .svg"
-                                    help="Masukkan gambar utama anda sebagai preview terdepan."
+                                    help="Masukkan gambar utama sbg preview terdepan. max. 1 Mb"
                                     multiple="false"
                                     @change="uploadHero"
                                     :disabled="hero_img_temp != ''  || uploading == true"
@@ -181,6 +187,12 @@
                                     <p class="font-oswald text-xs text-gray-500">Gambar Galeri 4 sudah dipilih, silahkan klik tombol Ganti File untuk merubah file gambar Galeri 4 anda</p>
                                 </div>
 
+                            </div>
+                            <!-- alert file size too big -->
+                            <div v-if="tooBigSize" class="w-full text-center mt-2 bg-red-500 bg-opacity-10 p-2 rounded-lg">
+                                <p class="font-oswald text-hpoi-red text-sm">
+                                    Gagal Upload, Ukuran File terlalu besar
+                                </p>
                             </div>
                         </div>
                         <div class="border-t-2 flex gap-x-2 pt-4">
@@ -419,6 +431,7 @@ const imgOneIndicator = ref('')
 const imgTwoIndicator = ref('')
 const imgThreeIndicator = ref('')
 const imgFourIndicator = ref('')
+const tooBigSize = ref(false)
 
 // fetching first data image temp
 const { data: gambar_temp, error } = await useAsyncData('gambar_temp', async () => client
@@ -959,10 +972,26 @@ const uploadLogo = async (event: any) => {
     logoIndicator.value = 'upload'
     const file = event.target.files[0]
     if(!file) return
+    const fileSize = file.size
+    const fileMb = fileSize / 1024
+    if(fileMb > 512){
+        await reFetchData()
+        tooBigSize.value = true
+        console.log(fileMb)
+        console.log('file terlalu besar')
+        uploading.value = false
+        logoIndicator.value = ''
+        setTimeout(async () => {
+            tooBigSize.value = false
+        }, 3000);
+        return
+    }
     const fileExt = file.name.split('.').pop()
     const fileName = `${user.value?.id}/logo_img_${Date.now()}.${fileExt}`
     const filePath = `${fileName}`
 
+    console.log('file sesuai, gass upload')
+    console.log(fileMb)
     const { data, error } = await client
         .storage
         .from('hpoi_images')
@@ -983,6 +1012,20 @@ const uploadHero = async (event: any) => {
     heroIndicator.value = 'upload'
     const file = event.target.files[0]
     if(!file) return
+    const fileSize = file.size
+    const fileMb = fileSize / 1024
+    if(fileMb > 1024){
+        await reFetchData()
+        tooBigSize.value = true
+        console.log(fileMb)
+        console.log('file terlalu besar')
+        uploading.value = false
+        heroIndicator.value = ''
+        setTimeout(async () => {
+            tooBigSize.value = false
+        }, 3000);
+        return
+    }
     const fileExt = file.name.split('.').pop()
     const fileName = `${user.value?.id}/hero_img_${Date.now()}.${fileExt}`
     const filePath = `${fileName}`
@@ -1007,6 +1050,20 @@ const uploadImgOne = async (event: any) => {
     imgOneIndicator.value = 'upload'
     const file = event.target.files[0]
     if(!file) return
+    const fileSize = file.size
+    const fileMb = fileSize / 1024
+    if(fileMb > 1024){
+        await reFetchData()
+        tooBigSize.value = true
+        console.log(fileMb)
+        console.log('file terlalu besar')
+        uploading.value = false
+        imgOneIndicator.value = ''
+        setTimeout(async () => {
+            tooBigSize.value = false
+        }, 3000);
+        return
+    }
     const fileExt = file.name.split('.').pop()
     const fileName = `${user.value?.id}/one_img_${Date.now()}.${fileExt}`
     const filePath = `${fileName}`
@@ -1031,6 +1088,20 @@ const uploadImgTwo = async (event: any) => {
     imgTwoIndicator.value = 'upload'
     const file = event.target.files[0]
     if(!file) return
+    const fileSize = file.size
+    const fileMb = fileSize / 1024
+    if(fileMb > 1024){
+        await reFetchData()
+        tooBigSize.value = true
+        console.log(fileMb)
+        console.log('file terlalu besar')
+        uploading.value = false
+        imgTwoIndicator.value = ''
+        setTimeout(async () => {
+            tooBigSize.value = false
+        }, 3000);
+        return
+    }
     const fileExt = file.name.split('.').pop()
     const fileName = `${user.value?.id}/two_img_${Date.now()}.${fileExt}`
     const filePath = `${fileName}`
@@ -1055,6 +1126,20 @@ const uploadImgThree = async (event: any) => {
     imgThreeIndicator.value = 'upload'
     const file = event.target.files[0]
     if(!file) return
+    const fileSize = file.size
+    const fileMb = fileSize / 1024
+    if(fileMb > 1024){
+        await reFetchData()
+        tooBigSize.value = true
+        console.log(fileMb)
+        console.log('file terlalu besar')
+        uploading.value = false
+        imgThreeIndicator.value = ''
+        setTimeout(async () => {
+            tooBigSize.value = false
+        }, 3000);
+        return
+    }
     const fileExt = file.name.split('.').pop()
     const fileName = `${user.value?.id}/three_img_${Date.now()}.${fileExt}`
     const filePath = `${fileName}`
@@ -1079,6 +1164,20 @@ const uploadImgFour = async (event: any) => {
     imgFourIndicator.value = 'upload'
     const file = event.target.files[0]
     if(!file) return
+    const fileSize = file.size
+    const fileMb = fileSize / 1024
+    if(fileMb > 1024){
+        await reFetchData()
+        tooBigSize.value = true
+        console.log(fileMb)
+        console.log('file terlalu besar')
+        uploading.value = false
+        imgFourIndicator.value = ''
+        setTimeout(async () => {
+            tooBigSize.value = false
+        }, 3000);
+        return
+    }
     const fileExt = file.name.split('.').pop()
     const fileName = `${user.value?.id}/four_img_${Date.now()}.${fileExt}`
     const filePath = `${fileName}`

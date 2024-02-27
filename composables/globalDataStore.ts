@@ -22,6 +22,8 @@ export const useGlobalDataStore = defineStore('globalDataStore', {
         anggotaFeat: [] as any,
         anggotaActive: [] as any,
         anggotaPaginated: [] as any,
+        anggotaStoredCache: [] as any,
+        anggotaDetailStoredCache: [] as any,
 
     }),
 })
