@@ -18,7 +18,7 @@
                         <span class="text-hpoi-main font-semibold underline underline-offset-8">Featured Member</span> of the Week
                     </p>
                 </div>
-                <div class="relative w-full rounded-t-lg z-20 px-4 pt-4 bg-gsi-smokewhite">
+                <div :class="!fadingTextHero ? 'translate-y-80' : 'translate-y-0'" class="relative w-full rounded-t-lg z-20 px-4 pt-4 bg-gsi-smokewhite transition-all duration-200">
                     <!-- <h3 class="font-oswald text-xl lg:text-3xl pb-4"><span class="text-hpoi-main font-semibold underline underline-offset-8 ">Featured Member</span> of the Week</h3> -->
                     
                     <!-- member featured cards -->
@@ -79,7 +79,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div v-if="anggotaFeat.length == 0" :class="!fadingArrowHero ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'" class="grid grid-cols-12 gap-4 transition-all duration-300">
                         <div class="relative col-span-12 lg:col-span-4 w-full border border-slate-800 bg-gray-800 text-gsi-smokewhite transition-all duration-300 rounded-xl group p-3">
                             <div class="relative">
@@ -183,6 +182,7 @@
                             v-model="search"
                             @keydown.enter="searchData"
                             @keydown.tab="searchData"
+                            @focusout="searchData"
                         />
                     </div>
                 </div>
@@ -199,9 +199,7 @@
                 <div v-for="(item, index) in anggotaActive" :key="index" class="relative col-span-12 lg:col-span-4 w-full bg-white shadow transition-all duration-300 rounded-xl group p-3">
                     <div class="relative">
                         <nuxt-img v-if="item.hpoi_anggota.hero_img" :src="item.hpoi_anggota.hero_img" alt="hero provider" format="webp" loading="lazy" sizes="sm:50vw" class="object-cover object-center h-40 w-full rounded-lg"/>
-                        <!-- <span class="inline-block px-3 font-sans py-1 text-xs rounded-full bg-sky-100 text-sky-500 border-sky-100 border absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                            Uyesss
-                        </span> -->
+
                         <Badge class="dark absolute start-3 top-3 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                             {{ item.hpoi_anggota.nama_provider }}
                         </Badge>
@@ -229,9 +227,6 @@
                     </div>
                     <div class="mt-auto flex items-center gap-2">
                         <div class="relative inline-flex shrink-0 items-center justify-center outline-none rounded-full border">
-                            <!-- <div class="flex h-full w-full items-center justify-center overflow-hidden text-center transition-all duration-300 rounded-full">
-                                <nuxt-img src="/img/ava01.png" format="webp" loading="lazy" sizes="sm:20vw" class="max-h-full max-w-full object-cover object-center shadow-sm h-8 w-8" />
-                            </div> -->
                             <Avatar class="overflow-hidden bg-white">
                                 <nuxt-img v-if="item.hpoi_anggota.logo_img" :src="item.hpoi_anggota.logo_img" alt="logo provider" format="webp" loading="lazy" sizes="sm:20vw" class="object-cover object-center" />
                             </Avatar>
@@ -258,7 +253,7 @@
             <div v-if="loadingPaginate == true" class="w-full  py-6 flex justify-center items-center">
                 <LoadingMini />
             </div>
-            <div v-if="anggotaActive.length >= 1 && to < anggotaStoredCache.length && !loadingPaginate " class="w-full py-6">
+            <div v-if="anggotaActive.length >= 1 && to < anggotaStoredCache.length && !loadingPaginate && search == ''" class="w-full py-6">
                 <button class="w-full bg-hpoi-main py-4 px-2 font-semibold rounded-lg flex items-center justify-center gap-x-2" @click="paginateFetch()">
                     <p>
                         <Icon name="lucide:eye" class="text-2xl"/>
@@ -414,13 +409,13 @@ const reloadData = async () => {
 }
 
 const searchData = async () => {
-    loading.value = true
     if(search.value == '') {
         setTimeout(async () => {
             await reloadData()
             console.log('search is empty & get cache data back')
         }, 1000);
     } else {
+        loading.value = true
         const { data: search_anggota } = await client
             .from('hpoi_detail_anggota')
             .select(`
@@ -449,8 +444,6 @@ const fetchActivated = async () => {
 
 onMounted(async () => {
     await fetchFeatured()
-    // await fetchActived()
-    // await fetchShuffle()
     await fetchActivated()
 })
 

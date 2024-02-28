@@ -107,37 +107,53 @@
                     </div>
                     <div class="relative z-40 flex flex-col gap-3 lg:gap-4 text-gsi-darkblue">
                         <div class="flex gap-x-3 items-center justify-start">
-                            <Icon name="lucide:user" class="text-2xl lg:text-3xl" />
+                            <p>
+                                <Icon name="lucide:user" class="text-2xl lg:text-3xl" />
+                            </p>
                             <p class="font-oswald text-base lg:text-xl">{{ anggotaDetailStoredCache?.nama_pic }}</p>
                         </div>
                         <div class="flex gap-x-3 items-center justify-start">
-                            <Icon name="lucide:home" class="text-2xl lg:text-3xl" />
+                            <p>
+                                <Icon name="lucide:home" class="text-2xl lg:text-3xl" />
+                            </p>
                             <p class="font-oswald text-base lg:text-xl">{{ anggotaDetailStoredCache?.alamat }}</p>
                         </div>
                         <div class="flex gap-x-3 items-center justify-start">
-                            <Icon name="lucide:phone" class="text-2xl lg:text-3xl" />
+                            <p>
+                                <Icon name="lucide:phone" class="text-2xl lg:text-3xl" />
+                            </p>
                             <p class="font-oswald text-base lg:text-xl">{{ anggotaDetailStoredCache?.telepon }}</p>
                         </div>
                         <div v-if="anggotaDetailStoredCache?.email != ''" class="flex gap-x-3 items-center justify-start">
-                            <Icon name="lucide:mail" class="text-2xl lg:text-3xl" />
+                            <p>
+                                <Icon name="lucide:mail" class="text-2xl lg:text-3xl" />
+                            </p>
                             <p class="font-oswald text-base lg:text-xl">{{ anggotaDetailStoredCache?.email }}</p>
                         </div>
-                        <div v-if="anggotaDetailStoredCache?.instagram != ''" class="flex gap-x-3 items-center justify-start">
-                            <Icon name="lucide:instagram" class="text-2xl lg:text-3xl" />
+                        <nuxt-link v-if="anggotaDetailStoredCache?.instagram != ''" :to="anggotaDetailStoredCache?.instagram_url" target="_blank" class="flex gap-x-3 items-center justify-start">
+                            <p>
+                                <Icon name="lucide:instagram" class="text-2xl lg:text-3xl" />
+                            </p>
                             <p class="font-oswald text-base lg:text-xl">{{ anggotaDetailStoredCache?.instagram }}</p>
-                        </div>
-                        <div v-if="anggotaDetailStoredCache?.youtube != ''" class="flex gap-x-3 items-center justify-start">
-                            <Icon name="lucide:youtube" class="text-2xl lg:text-3xl" />
+                        </nuxt-link>
+                        <nuxt-link v-if="anggotaDetailStoredCache?.youtube != ''" :to="anggotaDetailStoredCache?.youtube_url" target="_blank" class="flex gap-x-3 items-center justify-start">
+                            <p>
+                                <Icon name="lucide:youtube" class="text-2xl lg:text-3xl" />
+                            </p>
                             <p class="font-oswald text-base lg:text-xl">{{ anggotaDetailStoredCache?.youtube }}</p>
-                        </div>
-                        <div v-if="anggotaDetailStoredCache?.facebook != ''" class="flex gap-x-3 items-center justify-start">
-                            <Icon name="lucide:facebook" class="text-2xl lg:text-3xl" />
+                        </nuxt-link>
+                        <nuxt-link v-if="anggotaDetailStoredCache?.facebook != ''" :to="anggotaDetailStoredCache?.facebook_url" target="_blank" class="flex gap-x-3 items-center justify-start">
+                            <p>
+                                <Icon name="lucide:facebook" class="text-2xl lg:text-3xl" />
+                            </p>
                             <p class="font-oswald text-base lg:text-xl">{{ anggotaDetailStoredCache?.facebook }}</p>
-                        </div>
-                        <div v-if="anggotaDetailStoredCache?.website != ''" class="flex gap-x-3 items-center justify-start">
-                            <Icon name="lucide:globe" class="text-2xl lg:text-3xl" />
+                        </nuxt-link>
+                        <nuxt-link v-if="anggotaDetailStoredCache?.website != ''" :to="anggotaDetailStoredCache?.website_url" target="_blank" class="flex gap-x-3 items-center justify-start">
+                            <p>
+                                <Icon name="lucide:globe" class="text-2xl lg:text-3xl" />
+                            </p>
                             <p class="font-oswald text-base lg:text-xl">{{ anggotaDetailStoredCache?.website }}</p>
-                        </div>
+                        </nuxt-link>
                     </div>
                     <div class="absolute -right-12 opacity-50 md:opacity-80 bottom-3 -rotate-90">
                         <Icon name="PatternThree" class="text-[15rem] lg:text-[16.5rem]"/>
@@ -165,10 +181,15 @@
         <div class="relative min-h-screen bg-gray-800 px-4 lg:px-64 py-20 overflow-hidden">
             <h3 class="font-oswald relative z-20 text-center text-3xl lg:text-4xl 2xl:text-5xl tracking-tight text-gsi-smokewhite"><span class="text-hpoi-main">Mini</span> Galeri</h3>
             <div v-motion-fade-visible-once class="relative z-20 grid grid-cols-6 flex-wrap gap-6 py-10">
-                <nuxt-img v-if="anggotaDetailStoredCache?.gallery_one" :src="anggotaDetailStoredCache?.gallery_one" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
-                <nuxt-img v-if="anggotaDetailStoredCache?.gallery_two" :src="anggotaDetailStoredCache?.gallery_two" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
-                <nuxt-img v-if="anggotaDetailStoredCache?.gallery_three" :src="anggotaDetailStoredCache?.gallery_three" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
-                <nuxt-img v-if="anggotaDetailStoredCache?.gallery_four" :src="anggotaDetailStoredCache?.gallery_four" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
+                <div class="col-span-6 lg:col-span-3 space-y-6">
+
+                    <nuxt-img v-if="anggotaDetailStoredCache?.gallery_one" :src="anggotaDetailStoredCache?.gallery_one" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
+                    <nuxt-img v-if="anggotaDetailStoredCache?.gallery_two" :src="anggotaDetailStoredCache?.gallery_two" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
+                </div>
+                <div class="col-span-6 lg:col-span-3 space-y-6">
+                    <nuxt-img v-if="anggotaDetailStoredCache?.gallery_three" :src="anggotaDetailStoredCache?.gallery_three" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
+                    <nuxt-img v-if="anggotaDetailStoredCache?.gallery_four" :src="anggotaDetailStoredCache?.gallery_four" format="webp" loading="lazy" sizes="sm:50vw" class="col-span-6 lg:col-span-3 object-cover object-center w-full rounded-xl shadow-lg"/>
+                </div>
             </div>
             <p class="absolute py-10 right-0 opacity-20 md:opacity-50 top-32">
                 <Icon name="PatternThree" class="text-[20rem] rotate-90 "/>
