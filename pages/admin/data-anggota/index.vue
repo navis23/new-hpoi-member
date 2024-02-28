@@ -42,7 +42,7 @@
                         <Icon name="lucide:image-down" class="text-xl" />
                         <span>Edit Logo & Gambar</span>
                     </ButtonBaseSmall>
-                    <ButtonBaseSmall @click="goUnduhCard()" class="shadow flex justify-center items-center gap-x-1">
+                    <ButtonBaseSmall v-if="detail_anggota?.activated == true" @click="goUnduhCard()" class="shadow flex justify-center items-center gap-x-1">
                         <Icon name="lucide:credit-card" class="text-xl" />
                         <span>Unduh Membercard</span>
                     </ButtonBaseSmall>
@@ -84,6 +84,9 @@
                 <p v-if="detail_anggota.role == true">
                     
                     Anda berstatus <span class="text-hpoi-main uppercase"> Admin Humas</span>, akses halaman Admin HPOI lewat tombol diatas
+                </p>
+                <p v-if="detail_anggota?.activated == false" class="text-xs lg:text-sm">
+                    Akun anda saat ini <span class="text-hpoi-red">belum aktif</span>, silahkan hubungi Humas HPOI untuk info selanjutnya atau tunggu aktifasi dari admin.
                 </p>
             </div>
             <div class="relative z-40 grid grid-cols-12 pb-10 gap-6">
