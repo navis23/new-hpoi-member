@@ -18,6 +18,14 @@
                                 Unduh Kartu Anggota
                             </span>
                     </ButtonBaseSmall>
+                    <ButtonBaseSmall
+                        @click="startDlBehind()" 
+                        class="dark flex items-center justify-center gap-x-1 mt-3">
+                            <Icon name="lucide:download" class="text-xl" />
+                            <span>
+                                Unduh Kartu Belakang
+                            </span>
+                    </ButtonBaseSmall>
                 </div>
                 <div class="relative grid grid-cols-2 gap-6 w-full">
                     <div id="testing" class="col-span-2 lg:col-span-1 relative bg-white w-[60rem] -translate-x-[18.1rem] -translate-y-[10rem] scale-[.39] lg:-translate-x-[7.5rem] lg:-translate-y-[7.5rem] lg:scale-50">
@@ -36,12 +44,12 @@
                         </div>
                         <div :class="nameProviderMargin ? 'top-[22rem]' : 'top-[23rem]'" class="absolute left-[3.25rem]">
                             <p class="text-4xl font-oswald uppercase">
-                                {{ splitNamaDpc }}
+                                {{ dpc }}
                             </p>
                         </div>
                         <div :class="nameProviderMargin ? 'top-[27.5rem]' : 'top-[28.5rem]'" class="absolute left-[3.25rem]">
                             <p class="text-4xl font-oswald uppercase">
-                                {{ splitNamaDpd }}
+                                {{ dpd }}
                             </p>
                         </div>
                         <div class="absolute bottom-16 right-20 flex flex-col items-center justify-center">
@@ -58,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-span-2 lg:col-span-1 relative bg-white w-[60rem] -translate-x-[18.1rem] -translate-y-[32.5rem] scale-[.39] lg:-translate-x-[13.5rem] lg:-translate-y-[7.5rem] lg:scale-50">
+                    <div id="behind" class="col-span-2 lg:col-span-1 relative bg-white w-[60rem] -translate-x-[18.1rem] -translate-y-[32.5rem] scale-[.39] lg:-translate-x-[13.5rem] lg:-translate-y-[7.5rem] lg:scale-50">
                         <div class="relative w-full">
                             <img src="/img/membercard2.jpg" class="object-contain object-center">
                         </div>
@@ -111,6 +119,8 @@ const {
     gallery_two,
     gallery_three,
     gallery_four,
+    dpc,
+    dpd,
     id_dpc,
     nama_dpc,
     logo_img_temp,
@@ -163,6 +173,8 @@ no_anggota.value = await detail_anggota.value.hpoi_anggota.no_anggota
 nama_provider.value = await detail_anggota.value.hpoi_anggota.nama_provider
 nama_pic.value = await detail_anggota.value.hpoi_anggota.nama_pic
 logo_img.value = await detail_anggota.value.hpoi_anggota.logo_img
+dpc.value = await detail_anggota.value.hpoi_anggota.dpc
+dpd.value = await detail_anggota.value.hpoi_anggota.dpd
 nama_dpc.value = await detail_anggota.value.hpoi_dpc.nama_dpc
 id_dpc.value = await detail_anggota.value.id_dpc
 
@@ -199,6 +211,28 @@ const testCard = async () => {
         }, 2000);
     })
 }
+const behindCard = async () => {
+    
+    const ssTarget = document.getElementById('behind')
+    await html2canvas(ssTarget as HTMLElement , {
+      allowTaint: true,
+      useCORS: true,
+      scale: 10,
+    }).then(async (canvas: any) => {
+        const base64image = await canvas.toDataURL("image/png")
+        
+        const anchor =  document.createElement('a')
+        anchor.setAttribute('href', base64image)
+        anchor.setAttribute('download', `E-Card_${no_anggota.value}_Behind.png`)
+        anchor.click()
+        anchor.remove()
+        nameProviderMargin.value = false
+        setTimeout(async () => {
+            loading.value = false
+        }, 2000);
+    })
+}
+
 
 const startDl = async () => {
     nameProviderMargin.value = true
@@ -207,6 +241,18 @@ const startDl = async () => {
         console.log(nameProviderMargin.value)
         await nextTick().then(async () => {
             await testCard()
+            console.log('gass ' + nameProviderMargin.value)
+        })
+    }
+}
+
+const startDlBehind = async () => {
+    nameProviderMargin.value = true
+    loading.value = true
+    if(nameProviderMargin.value == true) {
+        console.log(nameProviderMargin.value)
+        await nextTick().then(async () => {
+            await behindCard()
             console.log('gass ' + nameProviderMargin.value)
         })
     }

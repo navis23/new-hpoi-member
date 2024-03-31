@@ -123,8 +123,8 @@
                                                             <td class="whitespace-nowrap text-xs p-4">
                                                                 {{ item.hpoi_anggota.telepon }}
                                                             </td>
-                                                            <td class="whitespace-nowrap text-xs p-4">
-                                                                {{ item.hpoi_dpc.nama_dpc }}
+                                                            <td class="whitespace-nowrap text-xs p-4 capitalize">
+                                                                {{ item.hpoi_anggota.dpc.toLowerCase() }}, {{ item.hpoi_anggota.dpd.toLowerCase() }}
                                                             </td>
                                                             <td class="whitespace-nowrap text-xs p-4">
                                                                 <div v-if="loading && item.id_anggota == id_anggota_temp" class="flex gap-x-2">
@@ -294,12 +294,12 @@
                                             </div>
                                             <div :class="nameProviderMargin ? 'top-[22rem]' : 'top-[23rem]'" class="absolute left-[3.25rem]">
                                                 <p class="text-4xl font-oswald uppercase">
-                                                    {{ splitNamaDpc }}
+                                                    {{ dpc_temp }}
                                                 </p>
                                             </div>
                                             <div :class="nameProviderMargin ? 'top-[27.5rem]' : 'top-[28.5rem]'" class="absolute left-[3.25rem]">
                                                 <p class="text-4xl font-oswald uppercase">
-                                                    {{ splitNamaDpd }}
+                                                    {{ dpd_temp }}
                                                 </p>
                                             </div>
                                             <div class="absolute bottom-16 right-20 flex flex-col items-center justify-center">
@@ -387,7 +387,7 @@
                                                     Kota/Kab. (DPC)
                                                 </th>
                                                 <td class="pb-2 text-sm font-semibold">
-                                                    {{ splitNamaDpc }}
+                                                    {{ dpc_temp }}
                                                 </td>
                                             </tr>
                                             <tr class="text-left">
@@ -395,7 +395,7 @@
                                                     Provinsi (DPD)
                                                 </th>
                                                 <td class="pb-2 text-sm font-semibold">
-                                                    {{ splitNamaDpd }}
+                                                    {{ dpd_temp }}
                                                 </td>
                                             </tr>
                                             <tr class="text-left">
@@ -505,6 +505,8 @@ const id_anggota_temp = ref('')
 const no_anggota_temp = ref('')
 const nama_provider_temp = ref('')
 const email_temp = ref('')
+const dpc_temp = ref('')
+const dpd_temp = ref('')
 const nama_pic_temp = ref('')
 const nama_dpc_temp = ref('')
 const nama_logo_temp = ref('')
@@ -528,7 +530,7 @@ const { data: anggota } = await useAsyncData('anggota', async () => client
     .from('hpoi_detail_anggota')
     .select(`
         featured, activated, id_anggota,
-        hpoi_anggota(nama_provider, telepon, email, no_anggota, nama_pic, logo_img, user_id),
+        hpoi_anggota(nama_provider, telepon, email, no_anggota, nama_pic, logo_img, dpc, dpd, user_id),
         hpoi_dpc( nama_dpc )
     `)
     .order('created_at')
@@ -555,7 +557,7 @@ const reFetchData = async() => {
         .from('hpoi_detail_anggota')
         .select(`
             featured, activated, id_anggota,
-            hpoi_anggota(nama_provider, telepon, email, no_anggota, nama_pic, logo_img, user_id),
+            hpoi_anggota(nama_provider, telepon, email, no_anggota, nama_pic, logo_img, dpc, dpd, user_id),
             hpoi_dpc( nama_dpc )
         `)
         .order('created_at')
@@ -706,6 +708,8 @@ const openModalCard = async (item:any) => {
     no_anggota_temp.value = item.hpoi_anggota.no_anggota
     nama_provider_temp.value = item.hpoi_anggota.nama_provider
     nama_pic_temp.value = item.hpoi_anggota.nama_pic
+    dpc_temp.value = item.hpoi_anggota.dpc
+    dpd_temp.value = item.hpoi_anggota.dpd
     nama_dpc_temp.value = item.hpoi_dpc.nama_dpc
     nama_logo_temp.value = item.hpoi_anggota.logo_img
 
@@ -725,6 +729,8 @@ const openModalConfirm = async (item:any) => {
     nama_provider_temp.value = item.hpoi_anggota.nama_provider
     email_temp.value = item.hpoi_anggota.email
     nama_pic_temp.value = item.hpoi_anggota.nama_pic
+    dpc_temp.value = item.hpoi_anggota.dpc
+    dpd_temp.value = item.hpoi_anggota.dpd
     nama_dpc_temp.value = item.hpoi_dpc.nama_dpc
     nama_logo_temp.value = item.hpoi_anggota.logo_img
     activated_temp.value = item.activated
@@ -744,6 +750,8 @@ const CloseModal = () => {
     no_anggota_temp.value = ''
     nama_provider_temp.value = ''
     nama_pic_temp.value = ''
+    dpc_temp.value =  ''
+    dpd_temp.value =  ''
     nama_dpc_temp.value =  ''
     nama_logo_temp.value = ''
     splitNamaDpc.value = ''
@@ -756,6 +764,8 @@ const cancelVerification = () => {
     no_anggota_temp.value = ''
     nama_provider_temp.value = ''
     nama_pic_temp.value = ''
+    dpc_temp.value =  ''
+    dpd_temp.value =  ''
     nama_dpc_temp.value =  ''
     nama_logo_temp.value = ''
     splitNamaDpc.value = ''

@@ -22,6 +22,8 @@ export const useAnggotaStore = defineStore('anggotaStore', {
         gallery_two: '',
         gallery_three: '',
         gallery_four: '',
+        dpc: '',
+        dpd: '',
         id_dpc: 0,
         nama_dpc: '',
         imagesAll_temp: [] as any,

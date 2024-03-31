@@ -90,7 +90,7 @@
                 </p>
             </div>
             <div class="relative z-40 grid grid-cols-12 pb-10 gap-6">
-                <div class="lg:hidden col-span-12 bg-gray-50 rounded-xl shadow p-6 overflow-hidden">
+                <div v-if="detail_anggota?.activated == true" class="lg:hidden col-span-12 bg-gray-50 rounded-xl shadow p-6 overflow-hidden">
                     <div class="flex items-center justify-between">
                         <p class="font-oswald text-xl font-bold text-hpoi-main">
                             Unduh Kartu Anggota
@@ -144,8 +144,8 @@
                             <p class="text-sm">DPC Terdaftar</p>
                             <div class="flex items-center justify-start gap-x-1">
                                 <Icon name="lucide:landmark" class="text-2xl text-hpoi-main" />
-                                <p class="text-lg">
-                                    {{ detail_anggota?.hpoi_dpc.nama_dpc }}
+                                <p class="text-lg capitalize">
+                                    {{ detail_anggota?.hpoi_anggota.dpc.toLowerCase() }}, {{ detail_anggota?.hpoi_anggota.dpd.toLowerCase() }}
                                 </p>
                             </div>
                         </div>
