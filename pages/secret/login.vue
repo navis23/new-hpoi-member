@@ -50,6 +50,9 @@
                 <h3 class="font-oswald text-gsi-smokewhite">
                     belum punya akun ? <nuxt-link to="/secret/daftar"><span class="text-hpoi-main underline underline-offset-4">Daftar Disini</span></nuxt-link> 
                 </h3>
+                <h3 class="font-oswald text-gsi-smokewhite">
+                    Lupa password anda ? <nuxt-link to="/secret/reset-password"><span class="text-hpoi-main underline underline-offset-4">Reset Disini</span></nuxt-link> 
+                </h3>
             </div>
             <p class="absolute py-10 -right-56 opacity-20 md:opacity-50 top-20">
                 <Icon name="PatternThree" class="text-[28rem]"/>
