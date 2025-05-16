@@ -22,7 +22,7 @@
                             label="Konfirmasi Password Baru Anda"
                             v-model="repassword"
                             suffix-icon="eyeClosed"
-                            @suffix-icon-click="handleIconClick"
+                            @suffix-icon-click="handleIconClick2"
                             placeholder="Ketikkan Password baru Anda Kembali"
                             help="Masukkan password baru anda kembali"
                         />
@@ -67,10 +67,7 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  middleware: ["auth-reset"]
-  // or middleware: 'auth'
-})
+
 const storeGlobalData = useGlobalDataStore()
 const client = useSupabaseClient()
 const storeAnggota = useAnggotaStore()
@@ -120,7 +117,7 @@ const newPassword = async () => {
                 try {
                     let { error } = await client.auth.signOut()
                     if(error) throw error;
-                    
+
                     storeAnggota.$reset()
                     setTimeout(async () => {
                         loading.value = false
@@ -159,6 +156,10 @@ const newPassword = async () => {
 }
 
 const handleIconClick = (node : any, e : any) => {
+    node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'
+    node.props.type = node.props.type === 'password' ? 'text' : 'password'
+}
+const handleIconClick2 = (node : any, e : any) => {
     node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'
     node.props.type = node.props.type === 'password' ? 'text' : 'password'
 }
