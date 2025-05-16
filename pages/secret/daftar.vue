@@ -53,10 +53,11 @@
                         </ButtonBase>
                     </div>
                 </div>
-                
-                <h3 class="font-oswald text-gsi-smokewhite">
-                    Sudah punya akun ? <nuxt-link to="/secret/login"><span class="text-hpoi-main underline underline-offset-4">Login Disini</span></nuxt-link> 
-                </h3>
+                <div class="relative z-40 w-full">
+                    <h3 class="font-oswald text-gsi-smokewhite">
+                        Sudah punya akun ? <nuxt-link to="/secret/login"><span class="text-hpoi-main underline underline-offset-4">Login Disini</span></nuxt-link> 
+                    </h3>
+                </div>
             </div>
             <p class="absolute py-10 -right-56 opacity-20 md:opacity-50 top-20">
                 <Icon name="PatternThree" class="text-[28rem]"/>
