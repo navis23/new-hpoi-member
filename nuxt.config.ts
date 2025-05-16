@@ -50,7 +50,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/secret/login',
       callback: '/confirm',
-      exclude: ['/', '/anggota/*', '/secret/daftar', '/secret/login-admin', '/secret/reset-password', '/secret/update-password', '/secret/confirm', '/secret/confirm-password', '/secret/confirm-reset', '/get-card/*'],
+      exclude: ['/', '/anggota/*', '/secret/daftar', '/secret/login-admin', '/secret/reset-password', '/secret/confirm', '/secret/confirm-password', '/secret/confirm-reset', '/get-card/*'],
     }
   },
   image: {

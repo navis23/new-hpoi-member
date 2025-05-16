@@ -68,11 +68,12 @@
 
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["auth"]
+  middleware: ["auth-reset"]
   // or middleware: 'auth'
 })
 const storeGlobalData = useGlobalDataStore()
 const client = useSupabaseClient()
+const storeAnggota = useAnggotaStore()
 
 const {
     loading,
@@ -116,12 +117,21 @@ const newPassword = async () => {
         } else {
             if(data){
                 console.log(data)
-                setTimeout(async () => {
-                    loading.value = false
-                    password.value = ''
-                    repassword.value = ''
-                    navigateTo('/secret/confirm-password')
-                }, 1000);
+                try {
+                    let { error } = await client.auth.signOut()
+                    if(error) throw error;
+                    
+                    storeAnggota.$reset()
+                    setTimeout(async () => {
+                        loading.value = false
+                        password.value = ''
+                        repassword.value = ''
+                        navigateTo('/secret/confirm-password')
+                        console.log('berhasil log out')
+                    }, 2000);
+                } catch (error) {
+                    console.log(error)
+                }
             } else {
                 console.log(error)
                 setTimeout(async () => {
